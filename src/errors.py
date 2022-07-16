@@ -1,10 +1,18 @@
-
+'''
+Errors for the other modules
+'''
 
 class MoreThanOneStructDeclaredError(Exception):
-    pass
+    '''
+    To be raised if the user tries to describe more than one struct per yaml file.
+    '''
 
 class CDataTypeNotRecognizedError(Exception):
-    pass
+    '''
+    To be raised if the user passes in an unexpected C/C++ data type.
+    '''
 
 class ArraySizeNotRecognizedError(Exception):
-    pass
+    '''
+    To be raised if the user does not describe an array correctly.
+    '''

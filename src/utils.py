@@ -1,25 +1,20 @@
+'''
+Utilities to be used in the rest of the module.
+'''
+
+from c_data_types import types_dict, sign_flags
+
 
 class CDataTypes:
     '''
     Default data types available in C/C++.
     '''
 
-    flags           =    ['signed', 'unsigned']
-    types_dict = {
-        'int':           [      1,           1],
-        'size_t':        [      0,           0],
-        'float':         [      0,           0],
-        'double':        [      0,           0],
-        'long double':   [      1,           1],
-        'short':         [      0,           0],
-        'long':          [      1,           1],
-        'long long':     [      1,           1],
-        'char':          [      1,           1],
-        'std_string':    [      0,           0],
-    }
+    flags = sign_flags
+    types_dict = types_dict
 
     # Generates complete types list
-    types_list = []
+    types_list = [] # -> this is the one that will be used
     for k, v in types_dict.items():
         types_list.append(k)
         for i in range(2):

@@ -16,3 +16,6 @@ myStruct:
 #               {'float': 'price'},
 #               {'char': 'grade'},
 #               {'std_string': 'description'}]}
+
+
+# Colocar imports :? -> pra mapear tipos especificos

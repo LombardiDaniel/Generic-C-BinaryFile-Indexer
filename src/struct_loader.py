@@ -1,8 +1,15 @@
+'''
+Contains the struct loader class.
+'''
+
 import yaml
 
 from utils import Utils, CDataTypes
-from errors import MoreThanOneStructDeclaredError, ArraySizeNotRecognizedError, CDataTypeNotRecognizedError
-
+from errors import (
+    MoreThanOneStructDeclaredError,
+    ArraySizeNotRecognizedError,
+    CDataTypeNotRecognizedError
+)
 
 
 class StructLoader:
@@ -58,7 +65,6 @@ class StructLoader:
         }
         '''
 
-        # TODO: precisa criar metodo pra garantir que sao tipos existentes em C
         # TODO: instalar logger
         # TODO: comentar essa gorororba ai de baixo
 

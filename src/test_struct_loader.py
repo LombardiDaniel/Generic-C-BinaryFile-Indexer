@@ -1,3 +1,7 @@
+'''
+unittests for struct_loader
+'''
+
 import unittest
 
 from struct_loader import StructLoader
