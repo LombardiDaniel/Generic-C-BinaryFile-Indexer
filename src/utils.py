@@ -4,11 +4,27 @@ class CDataTypes:
     Default data types available in C/C++.
     '''
 
-    int = 'int'
-    float = 'float'
-    double = 'double'
-    long = 'long'
-    char = 'char'
+    flags           =    ['signed', 'unsigned']
+    types_dict = {
+        'int':           [      1,           1],
+        'size_t':        [      0,           0],
+        'float':         [      0,           0],
+        'double':        [      0,           0],
+        'long double':   [      1,           1],
+        'short':         [      0,           0],
+        'long':          [      1,           1],
+        'long long':     [      1,           1],
+        'char':          [      1,           1],
+        'std_string':    [      0,           0],
+    }
+
+    # Generates complete types list
+    types_list = []
+    for k, v in types_dict.items():
+        types_list.append(k)
+        for i in range(2):
+            if v[i]:
+                types_list.append(f'{flags[i]} {k}')
 
 
     @staticmethod
@@ -26,7 +42,7 @@ class CDataTypes:
         Validates the type in C/C++ for the cookiecutter.
         '''
 
-        if type_name not in vars():
+        if type_name not in CDataTypes.types_list:
             return False
 
         return True

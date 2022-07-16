@@ -1,7 +1,10 @@
 
 
-class MoreThanOneStructDeclared(Exception):
+class MoreThanOneStructDeclaredError(Exception):
     pass
 
-class outroErro(Exception):
+class CDataTypeNotRecognizedError(Exception):
+    pass
+
+class ArraySizeNotRecognizedError(Exception):
     pass
