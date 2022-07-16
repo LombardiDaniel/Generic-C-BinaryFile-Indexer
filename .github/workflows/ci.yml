@@ -15,7 +15,7 @@ jobs:
       - name: Compile
         run: |
           cd src
-          make
+          if [[ -f "Makefile" ]] && make
 
 
   lint_code_base:
