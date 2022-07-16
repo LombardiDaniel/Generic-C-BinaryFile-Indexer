@@ -14,8 +14,8 @@ jobs:
 
       - name: Compile
         run: |
-          cd src
-          [ -f "Makefile" ] && make
+          cd src/c_templates
+          make
 
 
   lint_code_base:
