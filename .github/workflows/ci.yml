@@ -1,0 +1,46 @@
+name: C/C++ Compile and Test - CI
+
+on:
+  push:
+      branches: [ main ]
+  pull_request:
+      branches: [ main ]
+
+jobs:
+  cpp_compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Compile
+        run: |
+          cd src
+          make
+
+
+  lint_code_base:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: lint
+        uses: github/super-linter@v4
+        env:
+          DEFAULT_BRANCH: main
+          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_ALL_CODEBASE: false
+          VALIDATE_CPP: true
+          VALIDATE_CLANG_FORMAT: true
+          VALIDATE_PYTHON: true
+          PYTHON_PYLINT_CONFIG_FILE: ./.pylintrc
+
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Python Unit Tests
+        run: |
+          cd src
+          python -m unittest
