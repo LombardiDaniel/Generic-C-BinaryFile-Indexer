@@ -30,7 +30,7 @@ class TestStructLoader(unittest.TestCase):
                 {'size_t': 'secondClassBloat'},
                 {'float': 'price'},
                 {'char': 'grade'},
-                {'std_string': 'description'}
+                # {'std_string': 'description'}
             ],
         }
 
@@ -81,3 +81,55 @@ class TestStructLoader(unittest.TestCase):
             StructLoader.verify_struct,
             raise_TypeError_dict
         )
+
+        all_default_data_types_yaml = { # got from: https://en.wikipedia.org/wiki/C_data_types
+            'myStruct': [
+                {'char': 'a'},
+                {'signed char': 'a'},
+                {'unsigned char': 'a'},
+
+                {'short': 'a'},
+                {'short int': 'a'},
+                {'signed short': 'a'},
+                {'signed short int': 'a'},
+
+                {'unsigned short': 'a'},
+                {'unsigned short int': 'a'},
+
+                {'signed': 'a'},
+                {'signed int': 'a'},
+                {'int': 'a'},
+
+                {'unsigned int': 'a'},
+                {'unsigned': 'a'},
+
+                {'long': 'a'},
+                {'long int': 'a'},
+                {'signed long': 'a'},
+                {'signed long int': 'a'},
+
+                {'unsigned long int': 'a'},
+                {'unsigned long': 'a'},
+
+                {'long long': 'a'},
+                {'long long int': 'a'},
+                {'signed long long': 'a'},
+                {'signed long long int': 'a'},
+
+                {'unsigned long long': 'a'},
+                {'unsigned long long int': 'a'},
+
+                {'float': 'a'},
+
+                {'double': 'a'},
+
+                {'long double': 'a'},
+            ],
+        }
+
+        tmp = StructLoader(
+            yaml_path=None,
+            test_struct_dict=all_default_data_types_yaml
+        )
+
+        self.assertTrue(tmp.verify_struct(tmp.struct))

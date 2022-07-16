@@ -7,7 +7,7 @@ myStruct:
         - secondClassBloat # part of list, thus same size
     - float: price
     - char: grade
-    - std_string: description
+    # - std_string: description
 
 # {'myStruct': [{'size_t': 'size'},
 #               {'unsigned long long': 'id'},

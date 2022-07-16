@@ -14,9 +14,11 @@ types_dict = {
     'float':         [       0,          0],
     'double':        [       0,          0],
     'long double':   [       1,          1],
-    'short':         [       0,          0],
+    'short':         [       1,          1],
     'long':          [       1,          1],
     'long long':     [       1,          1],
     'char':          [       1,          1],
-    'std_string':    [       0,          0],
+    'unsigned':      [       0,          0],
+    'signed':        [       0,          0],
+    # 'std_string':    [       0,          0],
 }

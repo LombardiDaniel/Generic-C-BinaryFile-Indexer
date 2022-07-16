@@ -18,12 +18,17 @@ class StructLoader:
     into a manajable python object to be used in the cookiecutter.
     '''
 
-    def __init__(self, yaml_path):
+    def __init__(self, yaml_path=None, **kwargs):
         self.yaml_path = yaml_path
         self.struct = {}
         self._struct_dict = {}
 
-        self.__read_yaml()
+        if self.yaml_path is not None:
+            self.__read_yaml()
+
+        elif 'test_struct_dict' in kwargs:
+            self._struct_dict = kwargs['test_struct_dict']
+
         self.parse_struct()
 
 
@@ -66,7 +71,6 @@ class StructLoader:
         '''
 
         # TODO: instalar logger
-        # TODO: comentar essa gorororba ai de baixo
 
         self.struct = {
             'name': '',
@@ -76,27 +80,34 @@ class StructLoader:
         if len(self._struct_dict) > 1:
             raise MoreThanOneStructDeclaredError
 
-        # We search for the _one and only_ key, that contains the name of the struct
+        # We search for the __one and only__ key, that contains the name of the struct
         for k, _ in self._struct_dict.items():
             self.struct['name'] = k
 
         for item in self._struct_dict[self.struct['name']]:
-            for k, v in item.items(): # noqua:C0103 # pylint: disable=C0103
+            for k, v in item.items(): # pylint: disable=C0103
+                # k => c data type
+                # v => attribute name | list of attributes of that size
+
                 if isinstance(v, list): # if its a list, key gets passed as size of each element
                     for item_ in v:
                         self.struct['items'].append(
                             {k: item_}
                         )
-                else:
-                    if quant := Utils.is_number(k):
-                        self.struct['items'].append(
-                            {CDataTypes.byte_arr(quant): v}
-                        )
 
-                    else:
-                        self.struct['items'].append(
-                            {k: v}
-                        )
+                elif quant := Utils.is_number(k): # is a number (ammount of bytes)
+                    self.struct['items'].append(
+                        {CDataTypes.byte_arr(quant): v}
+                    )
+
+                else: # is a regular str, c data type
+                    # removes last 'int' if data type is more complex
+                    if len(k) > 4 and k[-3::] == 'int': # 'unsigned int' -> 'unsigned', etc
+                        k = k[:-4]
+
+                    self.struct['items'].append(
+                        {k: v}
+                    )
 
         StructLoader.verify_struct(self.struct)
 
@@ -128,3 +139,5 @@ class StructLoader:
                     raise CDataTypeNotRecognizedError(
                         f'Could not find "{k}" in C/C++ DataType table.'
                     )
+
+        return True
