@@ -1,0 +1,27 @@
+Daniel Lombardi - 738340
+Leticia Machado - 790945
+Vinicius Rodrigues - 790717
+
+Nossa ideia para o trabalho é criar um programa genérico para indexação de arquivos
+binários.
+
+O usuário passa a descrição das structs salvas por um arquivo YAML e nosso programa
+indexa e oferece uma interface para busca ao usuário.
+
+O programa irá funcionar utilizando uma interface em python para a especificação
+da struct. Utilizando cookie-cutters, o programa (a partir de templates de arquivos
+em C/C++ para interação e indexação dos arquivos binários) gerará um código para
+ser compilado. O programa realizará chamadas ao g++ para compilar o código em C/C++,
+que terá seu terminal mapeado para o programa em python.
+
+Ou seja, o programa terá seu executor escrito em C/C++ e compilado JIT, e terá uma
+CLI em python.
+
+Ainda não foi decidido exatamente como a interação entre os arquivos C/C++ e python
+ocorrerá. No momento, pensamos em utilizar a biblioteca de sub-processos do python.
+
+Módulos necessários:
+    - CLI: biblioteca _click: https://click.palletsprojects.com/en/8.1.x/
+    - Criação dos arquivos C/C++: biblioteca cookiecutter: https://github.com/cookiecutter/cookiecutter
+    - Compilação dos arquivos C/C++: GNU G++
+    - Interação com os executáveis em C/C++: biblioteca subprocesses: https://www.youtube.com/watch?v=2Fp1N6dof0Y
