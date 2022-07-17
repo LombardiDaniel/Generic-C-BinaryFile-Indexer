@@ -56,7 +56,7 @@ class StructLoader:
                       {'std_string': 'description'}]}
 
         Output of that input struct:
-        {'name': 'myStruct',
+        self.struct = {'name': 'myStruct',
          'items': [
            {'size_t': 'size'},
            {'unsigned long long': 'id'},
@@ -141,3 +141,34 @@ class StructLoader:
                     )
 
         return True
+
+
+    def __str__(self):
+        '''
+
+        self.struct = {
+         'name': 'myStruct',
+         'items': [
+           {'size_t': 'size'},
+           {'unsigned long long': 'id'},
+           {'char[80]': 'myCustomClass'},
+           {'size_t': 'classBloat'},
+           {'size_t': 'secondClassBloat'},
+           {'float': 'price'},
+           {'char': 'grade'},
+           {'std_string': 'description'}
+          ],
+        }
+        '''
+
+        struct_str = ''
+
+        struct_str += "typedef struct {\n"
+
+        for item in self.struct['items']:
+            for type, var_name in item.items(): # should have only one iteration
+                struct_str += f"\t{type} {var_name};\n"
+
+        struct_str += "}" + f" {self.struct['name']};"
+
+        return struct_str

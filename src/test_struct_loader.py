@@ -133,3 +133,24 @@ class TestStructLoader(unittest.TestCase):
         )
 
         self.assertTrue(tmp.verify_struct(tmp.struct))
+
+
+    def test_str_conversion(self):
+        '''
+        Tests the __str__() dunder method.
+        '''
+
+        expected_struct_str = ""
+        expected_struct_str += "typedef struct {\n"
+        expected_struct_str += "\tsize_t size;\n"
+        expected_struct_str += "\tunsigned long long id;\n"
+        expected_struct_str += "\tchar[80] myCustomClass;\n"
+        expected_struct_str += "\tsize_t classBloat;\n"
+        expected_struct_str += "\tsize_t secondClassBloat;\n"
+        expected_struct_str += "\tfloat price;\n"
+        expected_struct_str += "\tchar grade;\n"
+        expected_struct_str += "} myStruct;"
+
+        tmp = StructLoader(yaml_path="../templateYaml.yaml")
+
+        self.assertEqual(tmp.__str__(), expected_struct_str)
