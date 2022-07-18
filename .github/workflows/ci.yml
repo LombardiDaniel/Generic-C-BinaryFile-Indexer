@@ -15,7 +15,7 @@ jobs:
       - name: Compile
         run: |
           cd src/c_templates
-          make
+          make main.test.cpp
 
 
   lint_code_base:

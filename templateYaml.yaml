@@ -7,15 +7,22 @@ myStruct:
         - secondClassBloat # part of list, thus same size
     - float: price
     - char: grade
-    # - std_string: description
+
+
+# typedef struct {
+#         size_t size;
+#         unsigned long long id;
+#         char[80] myCustomClass;
+#         size_t classBloat;
+#         size_t secondClassBloat;
+#         float price;
+#         char grade;
+# } myStruct;
 
 # {'myStruct': [{'size_t': 'size'},
 #               {'unsigned long long': 'id'},
 #               {80: 'myCustomClass'},
 #               {'size_t': ['classBloat', 'secondClassBloat']},
 #               {'float': 'price'},
-#               {'char': 'grade'},
-#               {'std_string': 'description'}]}
-
-
-# Colocar imports :? -> pra mapear tipos especificos
+#               {'char': 'grade'}
+#              ]}
