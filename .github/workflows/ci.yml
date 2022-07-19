@@ -4,6 +4,7 @@ on:
   push:
       paths:
         - src/**
+        - .github/**
       branches: [ main ]
   pull_request:
       branches: [ main ]
