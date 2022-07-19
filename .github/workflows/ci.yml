@@ -3,7 +3,7 @@ name: C/C++ Compile and Test - CI
 on:
   push:
       paths:
-        - 'src'
+        - src/**
       branches: [ main ]
   pull_request:
       branches: [ main ]
