@@ -21,7 +21,6 @@ class CDataTypes:
             if v[i]:
                 types_list.append(f'{flags[i]} {k}')
 
-
     @staticmethod
     def byte_arr(ammount: int) -> str:
         '''
@@ -29,7 +28,6 @@ class CDataTypes:
         '''
 
         return f'char[{ammount}]'
-
 
     @staticmethod
     def valid_c_type(type_name: str) -> bool:
@@ -41,7 +39,6 @@ class CDataTypes:
             return False
 
         return True
-
 
     @staticmethod
     def is_str(var_type):

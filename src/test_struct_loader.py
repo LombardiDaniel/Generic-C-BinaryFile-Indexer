@@ -36,8 +36,7 @@ class TestStructLoader(unittest.TestCase):
 
         self.assertEqual(tmp.parse_struct(), expected_dict)
 
-
-        raise_CDataTypeNotRecognizedError_dict = { # pylint: disable=C0103
+        raise_CDataTypeNotRecognizedError_dict = { # noqa: N806
             'name': 'myStruct',
             'items': [
                 {'NOT_A_C_DATA_TYPE': 'size'},
@@ -52,7 +51,7 @@ class TestStructLoader(unittest.TestCase):
             raise_CDataTypeNotRecognizedError_dict
         )
 
-        raise_ArraySizeNotRecognizedError_dict = { # pylint: disable=C0103
+        raise_ArraySizeNotRecognizedError_dict = { # noqa: N806
             'name': 'myStruct',
             'items': [
                 {'size_t': 'size'},
@@ -67,7 +66,7 @@ class TestStructLoader(unittest.TestCase):
             raise_ArraySizeNotRecognizedError_dict
         )
 
-        raise_TypeError_dict = { # pylint: disable=C0103
+        raise_TypeError_dict = { # noqa: N806
             'name': 'myStruct',
             'items': [
                 {'size_t': 'size'},
@@ -136,7 +135,6 @@ class TestStructLoader(unittest.TestCase):
         )
 
         self.assertTrue(tmp.verify_struct(tmp.struct))
-
 
     def test_str_conversion(self):
         '''
