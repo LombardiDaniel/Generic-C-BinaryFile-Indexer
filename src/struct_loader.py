@@ -146,6 +146,9 @@ class StructLoader:
 
     def __str__(self):
         '''
+        Gets the str representation of the parsed struct.
+
+        this:
 
         self.struct = {
          'name': 'myStruct',
@@ -157,9 +160,23 @@ class StructLoader:
            {'size_t': 'secondClassBloat'},
            {'float': 'price'},
            {'char': 'grade'},
-           {'std_string': 'description'}
+           {'std::string': 'description'}
           ],
         }
+
+        becomes:
+
+        typedef struct {
+            size_t size;
+            unsigned long long id;
+            char[80] myCustomClass;
+            size_t classBloat;
+            size_t secondClassBloat;
+            float price;
+            char grade;
+            std::string description;
+        } myStruct;
+
         '''
 
         struct_str = ''

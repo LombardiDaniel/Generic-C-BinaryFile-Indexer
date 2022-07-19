@@ -35,3 +35,4 @@ def load_struct(yaml_path, verbose):
 
 if __name__ == '__main__':
     load_struct()
+# python main.py "../templateYaml.yaml" -v
