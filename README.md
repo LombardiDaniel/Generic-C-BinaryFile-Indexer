@@ -45,7 +45,7 @@ myStruct:
         - secondClassBloat # part of list, thus same size
     - float: price
     - char: grade
-    - *: description
+    - _: description # '_' indicates this field is of variable size
 ```
 
 ### Descrição do YAML:
