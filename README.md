@@ -6,6 +6,8 @@ A generic indexer for C/C++ binary files. A Project for our Data Management Clas
 -   Leticia Machado - 790945
 -   Vinicius Rodrigues - 790717
 
+# TO-DO: Garantir que indicadores de tamanho possuam campos de tamanho variável para apontar de fato.
+
 ## Tabela de Conteúdos
 
 -   [Sobre o Projeto](#sobre-o-projeto)
@@ -52,9 +54,9 @@ myStruct:
 
 O YAML se estrutura abaixo de uma chave que indica o nome da struct. A chave abre uma lista de dicionários, cada dicionário tem o formato `tipo de dado`: `{diretiva_de_tamanho(opcinoal)}nome do campo`. Para o nome do campo, existem duas diretivas para representar **indicadores de tamanho**:
 - `__size__`: indica o tamanho do registro completo
-- `_size_`: indica o tamanho do próximo campo
+- `_size_`: indica o tamanho do **próximo** campo
 
-Indicadores de tamanho serão utilizados para calcular os campos do tipo `*` ou `char[*]`. O indicador `*` é um curinga para `tamanho de campo variável`.
+Indicadores de tamanho serão utilizados para calcular os campos do tipo `_` ou `char *`. O indicador `_` é um curinga para `tamanho de campo variável`.
 
 No exemplo `myStruct` demonstrado acima, temos `__size__ofStruct`, este sinaliza o tamanho total do registro atual, já que se inicializa com `__size__`.
 
