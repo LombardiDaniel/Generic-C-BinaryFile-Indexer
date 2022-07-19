@@ -20,7 +20,7 @@ jobs:
           make main.test.cpp
 
 
-  lint_code_base:
+  lint_cpp:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -33,9 +33,30 @@ jobs:
           VALIDATE_ALL_CODEBASE: false
           VALIDATE_CPP: true
           VALIDATE_CLANG_FORMAT: true
-          VALIDATE_PYTHON: true
-          PYTHON_PYLINT_CONFIG_FILE: .pylintrc
-          # https://flake8.pycqa.org/en/latest/user/error-codes.html
+
+
+  lint_py:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # https://flake8.pycqa.org/en/latest/user/error-codes.html
+      - name: Lint with flake8
+        run: |
+          pip install flake8pip install pep8-naming
+          pip install --upgrade pep8-naming
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings.
+          flake8 . --count --ignore=E501,F541 --exit-zero --max-complexity=10 --max-line-length=120 --statistics
 
 
   test:

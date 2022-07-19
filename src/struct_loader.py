@@ -31,7 +31,6 @@ class StructLoader:
 
         self.parse_struct()
 
-
     def __read_yaml(self):
         '''
         Purely loads the yaml into a struct_dict.
@@ -39,7 +38,6 @@ class StructLoader:
 
         with open(self.yaml_path, mode='r', encoding='utf-8') as file:
             self._struct_dict = yaml.load(file, Loader=yaml.FullLoader)
-
 
     def parse_struct(self):
         '''
@@ -85,7 +83,7 @@ class StructLoader:
             self.struct['name'] = k
 
         for item in self._struct_dict[self.struct['name']]:
-            for k, v in item.items(): # pylint: disable=C0103
+            for k, v in item.items():
                 # k => c data type
                 # v => attribute name | list of attributes of that size
 
@@ -118,7 +116,6 @@ class StructLoader:
 
         return self.struct
 
-
     @staticmethod
     def verify_struct(struct):
         '''
@@ -146,7 +143,6 @@ class StructLoader:
                     )
 
         return True
-
 
     def __str__(self):
         '''
@@ -177,8 +173,3 @@ class StructLoader:
         struct_str += "}" + f" {self.struct['name']};"
 
         return struct_str
-
-
-# simple test
-# tmp = StructLoader(yaml_path="../templateYaml.yaml")
-# print(tmp)

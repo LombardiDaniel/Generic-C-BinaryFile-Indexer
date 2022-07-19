@@ -1,4 +1,3 @@
-#!/bin/python
 from os import path
 import click
 

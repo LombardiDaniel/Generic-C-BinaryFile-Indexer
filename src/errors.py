@@ -9,7 +9,7 @@ class MoreThanOneStructDeclaredError(Exception):
 
 class CDataTypeNotRecognizedError(Exception):
     '''
-    To be raised if the user passes in an unexpected C/C++ data type.
+    To be raised if the user passes an unexpected C/C++ data type.
     '''
 
 class ArraySizeNotRecognizedError(Exception):
