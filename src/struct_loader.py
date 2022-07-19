@@ -100,6 +100,11 @@ class StructLoader:
                         {CDataTypes.byte_arr(quant): v}
                     )
 
+                elif std_string := CDataTypes.is_str(k):
+                    self.struct['items'].append(
+                        {std_string: v}
+                    )
+
                 else: # is a regular str, c data type
                     # removes last 'int' if data type is more complex
                     if len(k) > 4 and k[-3::] == 'int': # 'unsigned int' -> 'unsigned', etc
@@ -172,3 +177,8 @@ class StructLoader:
         struct_str += "}" + f" {self.struct['name']};"
 
         return struct_str
+
+
+# simple test
+# tmp = StructLoader(yaml_path="../templateYaml.yaml")
+# print(tmp)

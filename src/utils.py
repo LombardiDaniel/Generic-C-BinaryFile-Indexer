@@ -2,7 +2,7 @@
 Utilities to be used in the rest of the module.
 '''
 
-from c_data_types import types_dict, sign_flags
+from c_data_types import types_dict, sign_flags, accepted_string_representations
 
 
 class CDataTypes:
@@ -41,6 +41,24 @@ class CDataTypes:
             return False
 
         return True
+
+
+    @staticmethod
+    def is_str(var_type):
+        '''
+        Checks that the var_type is a supported variable size field (char arr or std::string)
+        Returns the 'std::string' or False.
+
+        Args:
+            - var_type (str): str to be checked.
+        Returns:
+            - var (str | bool): if valid, returns 'std::string' else, returns False
+        '''
+
+        if var_type in accepted_string_representations:
+            return 'std::string'
+
+        return False
 
 
 class Utils:

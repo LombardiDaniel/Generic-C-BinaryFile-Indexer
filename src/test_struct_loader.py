@@ -30,7 +30,7 @@ class TestStructLoader(unittest.TestCase):
                 {'size_t': 'secondClassBloat'},
                 {'float': 'price'},
                 {'char': 'grade'},
-                # {'std_string': 'description'}
+                {'std::string': 'description'}
             ],
         }
 
@@ -124,6 +124,9 @@ class TestStructLoader(unittest.TestCase):
                 {'double': 'a'},
 
                 {'long double': 'a'},
+
+                # non defaults:
+                {'std::string': 'a'},
             ],
         }
 
@@ -149,6 +152,7 @@ class TestStructLoader(unittest.TestCase):
         expected_struct_str += "\tsize_t secondClassBloat;\n"
         expected_struct_str += "\tfloat price;\n"
         expected_struct_str += "\tchar grade;\n"
+        expected_struct_str += "\tstd::string description;\n"
         expected_struct_str += "} myStruct;"
 
         tmp = StructLoader(yaml_path="../templateYaml.yaml")

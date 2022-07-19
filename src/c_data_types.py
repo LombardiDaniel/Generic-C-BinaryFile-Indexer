@@ -20,5 +20,15 @@ types_dict = {
     'char':          [       1,          1],
     'unsigned':      [       0,          0],
     'signed':        [       0,          0],
-    # 'std_string':    [       0,          0],
+    'std::string':   [       0,          0], # check `accepted_string_representations` for input options
 }
+
+# used in fields of variable lenght when inputting in yaml
+accepted_string_representations = [
+    '_',
+    '*',
+    'std::string',
+    'std_string',
+    'char *',
+    'char*'
+]

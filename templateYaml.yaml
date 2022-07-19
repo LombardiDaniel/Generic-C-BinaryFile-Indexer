@@ -7,6 +7,7 @@ myStruct:
         - secondClassBloat # part of list, thus same size
     - float: price
     - char: grade
+    - _: description
 
 
 # typedef struct {
