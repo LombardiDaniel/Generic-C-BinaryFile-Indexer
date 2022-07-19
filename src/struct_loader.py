@@ -87,13 +87,13 @@ class StructLoader:
                 # k => c data type
                 # v => attribute name | list of attributes of that size
 
-                if isinstance(v, list): # if its a list, key gets passed as size of each element
+                if isinstance(v, list):  # if its a list, key gets passed as size of each element
                     for item_ in v:
                         self.struct['items'].append(
                             {k: item_}
                         )
 
-                elif quant := Utils.is_number(k): # is a number (ammount of bytes)
+                elif quant := Utils.is_number(k):  # is a number (ammount of bytes)
                     self.struct['items'].append(
                         {CDataTypes.byte_arr(quant): v}
                     )
@@ -103,9 +103,9 @@ class StructLoader:
                         {std_string: v}
                     )
 
-                else: # is a regular str, c data type
+                else:  # is a regular str, c data type
                     # removes last 'int' if data type is more complex
-                    if len(k) > 4 and k[-3::] == 'int': # 'unsigned int' -> 'unsigned', etc
+                    if len(k) > 4 and k[-3::] == 'int':  # 'unsigned int' -> 'unsigned', etc
                         k = k[:-4]
 
                     self.struct['items'].append(
@@ -184,7 +184,7 @@ class StructLoader:
         struct_str += "typedef struct {\n"
 
         for item in self.struct['items']:
-            for type, var_name in item.items(): # should have only one iteration
+            for type, var_name in item.items():  # should have only one iteration
                 struct_str += f"\t{type} {var_name};\n"
 
         struct_str += "}" + f" {self.struct['name']};"

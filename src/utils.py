@@ -14,7 +14,7 @@ class CDataTypes:
     types_dict = types_dict
 
     # Generates complete types list
-    types_list = [] # -> this is the one that will be used
+    types_list = []  # -> this is the one that will be used
     for k, v in types_dict.items():
         types_list.append(k)
         for i in range(2):
