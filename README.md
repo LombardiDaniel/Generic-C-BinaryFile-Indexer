@@ -6,7 +6,7 @@ A generic indexer for C/C++ binary files. A Project for our Data Management Clas
 -   Leticia Machado - 790945
 -   Vinicius Rodrigues - 790717
 
-# TO-DO: Garantir que indicadores de tamanho possuam campos de tamanho variável para apontar de fato.
+# TO-DO: Garantir que indicadores de tamanho possuam campos de tamanho variável para apontar de fato. Utilizar classes com `__str__()` e checar start com size descriptor
 
 ## Tabela de Conteúdos
 
