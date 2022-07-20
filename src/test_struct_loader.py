@@ -5,7 +5,11 @@ unittests for struct_loader
 import unittest
 
 from struct_loader import StructLoader
-from errors import CDataTypeNotRecognizedError, ArraySizeNotRecognizedError
+from errors import (
+    CDataTypeNotRecognizedError,
+    ArraySizeNotRecognizedError,
+    UnmatchedSizeDirectivesError
+)
 
 
 class TestStructLoader(unittest.TestCase):
@@ -23,7 +27,7 @@ class TestStructLoader(unittest.TestCase):
         expected_dict = {
             'name': 'myStruct',
             'items': [
-                {'size_t': 'size'},
+                {'size_t': '__size__myStructSize'},
                 {'unsigned long long': 'id'},
                 {'char[80]': 'myCustomClass'},
                 {'size_t': 'classBloat'},
@@ -143,7 +147,7 @@ class TestStructLoader(unittest.TestCase):
 
         expected_struct_str = ""
         expected_struct_str += "typedef struct {\n"
-        expected_struct_str += "\tsize_t size;\n"
+        expected_struct_str += "\tsize_t __size__myStructSize;\n"
         expected_struct_str += "\tunsigned long long id;\n"
         expected_struct_str += "\tchar[80] myCustomClass;\n"
         expected_struct_str += "\tsize_t classBloat;\n"
@@ -156,3 +160,39 @@ class TestStructLoader(unittest.TestCase):
         tmp = StructLoader(yaml_path="../templateYaml.yaml")
 
         self.assertEqual(tmp.__str__(), expected_struct_str)
+
+    def test_verify_size_logic(self):
+        '''
+        Tests logic for size directives.
+        '''
+
+        raise_UnmatchedSizeDirectivesErrorError_dict = {  # noqa: N806
+            'name': 'myStruct',
+            'items': [
+                {'size_t': '__size__size'},
+                {'unsigned long long': 'id'},
+                {'char[80]': 'myCustomClass'}
+            ],
+        }
+
+        tmp = StructLoader(test_struct=raise_UnmatchedSizeDirectivesErrorError_dict)
+
+        self.assertRaises(
+            UnmatchedSizeDirectivesError,
+            tmp.verify_size_logic,
+        )
+
+        raise_UnmatchedSizeDirectivesErrorError_dict = {  # noqa: N806
+            'name': 'myStruct',
+            'items': [
+                {'unsigned long long': '_size_sizeOfChar'},
+                {'char[80]': 'myCustomClass'}
+            ],
+        }
+
+        tmp = StructLoader(test_struct=raise_UnmatchedSizeDirectivesErrorError_dict)
+
+        self.assertRaises(
+            UnmatchedSizeDirectivesError,
+            tmp.verify_size_logic
+        )

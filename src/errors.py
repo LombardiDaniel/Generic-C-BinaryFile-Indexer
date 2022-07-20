@@ -19,3 +19,10 @@ class ArraySizeNotRecognizedError(Exception):
     '''
     To be raised if the user does not describe an array correctly.
     '''
+
+
+class UnmatchedSizeDirectivesError(Exception):
+    '''
+    To be raised if the user does not match the ammount of size directives with
+    variable sized fields.
+    '''

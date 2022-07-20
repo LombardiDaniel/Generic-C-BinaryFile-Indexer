@@ -2,7 +2,14 @@
 Utilities to be used in the rest of the module.
 '''
 
-from c_data_types import types_dict, sign_flags, accepted_string_representations
+from c_data_types import (
+    TYPES_DICT,
+    SIGN_FLAGS,
+    ACCEPTED_STRING_REPRESENTATIONS,
+    STRUCT_SIZE_DIRECTIVE,
+    NEXT_FIELD_SIZE_DIRECTIVE,
+    C_TYPE_FOR_VARIABLE_SIZE
+)
 
 
 class CDataTypes:
@@ -10,12 +17,12 @@ class CDataTypes:
     Default data types available in C/C++.
     '''
 
-    flags = sign_flags
-    types_dict = types_dict
+    flags = SIGN_FLAGS
+    TYPES_DICT = TYPES_DICT
 
     # Generates complete types list
     types_list = []  # -> this is the one that will be used
-    for k, v in types_dict.items():
+    for k, v in TYPES_DICT.items():
         types_list.append(k)
         for i in range(2):
             if v[i]:
@@ -52,10 +59,40 @@ class CDataTypes:
             - var (str | bool): if valid, returns 'std::string' else, returns False
         '''
 
-        if var_type in accepted_string_representations:
+        if var_type in ACCEPTED_STRING_REPRESENTATIONS:
             return 'std::string'
 
         return False
+
+    @staticmethod
+    def is_struct_size(field_name):
+        '''
+        Checks if the field name has the directive to be the struct size.
+        '''
+
+        if field_name.startswith(STRUCT_SIZE_DIRECTIVE):
+            return True
+
+        return False
+
+    @staticmethod
+    def is_field_size(field_name):
+        '''
+        Checks if the field name has the directive to be a field size.
+        '''
+
+        if field_name.startswith(NEXT_FIELD_SIZE_DIRECTIVE):
+            return True
+
+        return False
+
+    @staticmethod
+    def is_variable_size(field_type):
+        '''
+        Checks if the field type is the one accepted as variable size.
+        '''
+
+        return field_type == C_TYPE_FOR_VARIABLE_SIZE
 
 
 class Utils:

@@ -1,14 +1,14 @@
 '''
 Contains the struct loader class.
 '''
-
 import yaml
 
 from utils import Utils, CDataTypes
 from errors import (
     MoreThanOneStructDeclaredError,
     ArraySizeNotRecognizedError,
-    CDataTypeNotRecognizedError
+    CDataTypeNotRecognizedError,
+    UnmatchedSizeDirectivesError
 )
 
 
@@ -16,20 +16,40 @@ class StructLoader:
     '''
     StructLoader is responsible for loading the yaml specified C/C++ Struct
     into a manajable python object to be used in the cookiecutter.
+
+    Attributes:
+        - self.yaml_path (str) : yaml file path
+        - self._struct_dict (dict) : dict loaded directly from yaml_path
+        - self.struct (dict) : parsed dict ready to be rendered
+        - self.c_struct (str) : redered version of self.struct (keeps name directives
+            so that it may be used in the renderer)
+
+    Methods:
+
     '''
 
-    def __init__(self, yaml_path=None, **kwargs):
+    def __init__(self, yaml_path=None, *args, **kwargs):
         self.yaml_path = yaml_path
         self.struct = {}
         self._struct_dict = {}
 
-        if self.yaml_path is not None:
-            self.__read_yaml()
+        self.__iterator_counter = 0
 
-        elif 'test_struct_dict' in kwargs:
-            self._struct_dict = kwargs['test_struct_dict']
+        if self.yaml_path is None:  # test cases:
+            if 'test_struct_dict' in kwargs:
+                self._struct_dict = kwargs['test_struct_dict']
+                self.parse_struct()
+                self.verify_size_logic()
 
+            elif 'test_struct' in kwargs:
+                self.struct = kwargs['test_struct']
+
+            return
+
+        # methods run to guarantee user has c_struct ready
+        self.__read_yaml()
         self.parse_struct()
+        self.verify_size_logic()
 
     def __read_yaml(self):
         '''
@@ -190,3 +210,97 @@ class StructLoader:
         struct_str += "}" + f" {self.struct['name']};"
 
         return struct_str
+
+    def verify_size_logic(self, test_struct=None):
+        '''
+        Verifies that for every size directive, there is a variable sized field.
+
+        Input example:
+            self.struct = {
+             'name': 'myStruct',
+             'items': [
+               {'size_t': 'size'},
+               {'unsigned long long': 'id'},
+               {'char[80]': 'myCustomClass'},
+               {'size_t': 'classBloat'},
+               {'size_t': 'secondClassBloat'},
+               {'float': 'price'},
+               {'char': 'grade'},
+               {'std::string': 'description'}
+              ],
+            }
+        '''
+
+        if test_struct is None:
+            test_struct = self.struct
+        # test_struct = self.struct if test_struct is None else test_struct
+
+        undefined_size_needed = False
+        variable_size_field_count = 0
+        size_directive_count = 0
+
+        seeking_variable_size = False
+        for type, name in test_struct['items'][0].items():  # checks first element
+            if CDataTypes.is_struct_size(name):
+                undefined_size_needed = True  # User may wish to use field size for faster sequential seek
+
+            if CDataTypes.is_field_size(name):
+                seeking_variable_size = True
+                size_directive_count += 1
+
+            elif CDataTypes.is_variable_size(type):
+                variable_size_field_count += 1
+
+        for item in test_struct['items'][1:]:
+            if not seeking_variable_size:
+                for type, name in item.items():
+
+                    if CDataTypes.is_field_size(name):
+                        seeking_variable_size = True
+                        size_directive_count += 1
+
+                    elif CDataTypes.is_variable_size(type):
+                        variable_size_field_count += 1
+
+            else:
+                for type, name in item.items():
+                    seeking_variable_size = False
+                    variable_size_field_count += 1
+                    if not CDataTypes.is_variable_size(type):
+                        raise UnmatchedSizeDirectivesError(
+                            'Opened size directives are not closed with correct number of undefined field sizes.',
+                            f'Error Found on "{type}": "{name}"'
+                        )
+
+        if undefined_size_needed and variable_size_field_count == 0:
+            raise UnmatchedSizeDirectivesError(
+                'Struct size (__size__) specified on constant size struct.',
+                'If this is correct, remove directive from field name.'
+            )
+
+    @property
+    def c_struct(self):
+        '''
+        Returns the struct used in the C/C++ program.
+        '''
+
+        return self.__str__()
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        try:
+            self.__iterator_counter += 1
+            for k, v in self.struct['items'][self.__iterator_counter].items():
+                return (k, v)
+
+        except IndexError:
+            self.__iterator_counter = 0
+            raise StopIteration
+
+
+# tmp = StructLoader(yaml_path='../templateYaml.yaml')
+#
+# for type, name in tmp:
+#     print(type, name)
