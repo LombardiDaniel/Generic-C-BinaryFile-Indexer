@@ -65,6 +65,16 @@ class CDataTypes:
         return False
 
     @staticmethod
+    def is_size_indicator(field_name):
+        '''
+        Returns if the field is a size indicator.
+        '''
+
+        return (
+            field_name.startswith(STRUCT_SIZE_DIRECTIVE) or field_name.startswith(NEXT_FIELD_SIZE_DIRECTIVE)
+        )
+
+    @staticmethod
     def is_struct_size(field_name):
         '''
         Checks if the field name has the directive to be the struct size.

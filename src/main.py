@@ -24,11 +24,17 @@ def load_struct(yaml_path, verbose):
     if verbose:
         click.echo(f'Loading YAML file from: "{yaml_path}"')
 
-    loader = StructLoader(yaml_path)
+    struct = StructLoader(yaml_path).generate_struct()
 
     if verbose:
-        click.echo('Parsed Struct:')
-        click.echo(loader.__str__())
+        click.echo('\nStruct:\n')
+        click.echo(struct.c_struct)
+
+        click.echo('\nStruct Head:\n')
+        click.echo(struct.c_struct_head)
+
+
+
 
 
 # loader_cli.add_command(load_struct)

@@ -3,6 +3,7 @@ Contains the struct loader class.
 '''
 import yaml
 
+from struct import Struct
 from utils import Utils, CDataTypes
 from errors import (
     MoreThanOneStructDeclaredError,
@@ -50,6 +51,21 @@ class StructLoader:
         self.__read_yaml()
         self.parse_struct()
         self.verify_size_logic()
+
+    def get_struct_obj(self):
+        '''
+        Generates the Struct object to be used in the renderer.
+        '''
+
+        return Struct(self.struct)
+
+    def generate_struct(self):
+        '''
+        Generates the Struct object to be used in the renderer.
+        '''
+
+        return Struct(self.struct)
+
 
     def __read_yaml(self):
         '''
