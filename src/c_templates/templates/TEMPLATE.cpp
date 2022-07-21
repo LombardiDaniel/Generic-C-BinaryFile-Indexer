@@ -15,8 +15,7 @@ static const size_t SIZE_OF_STRUCT = sizeof({% obj.struct_name %});
     static const size_t SIZE_OF_STRUCT_HEAD = sizeof({% obj.struct_head_name %});
 {% endif %}
 
-#define DEBUG                                               1
-#define MAX_COMMAND_SIZE                                    5
+#define DEBUG                                               {% file.debug|default(0, true) %}
 
 
 template<typename... Args>
