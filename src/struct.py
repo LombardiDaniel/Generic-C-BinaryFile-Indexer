@@ -33,6 +33,8 @@ class Struct:
         self.__iterator_counter = 0
         self.struct_dict = self.__fix_dict(parsed_struct_as_dict)
         self.struct_head = self.__get_struct_head()
+        self.struct_name = self.struct_dict['name']
+        self.struct_head_name = f"{self.struct_dict['name']}_HEAD"
 
     def __fix_dict(self, parsed_struct_as_dict):
         '''

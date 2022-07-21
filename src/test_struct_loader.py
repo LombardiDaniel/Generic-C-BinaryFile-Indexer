@@ -28,6 +28,7 @@ class TestStructLoader(unittest.TestCase):
             'name': 'myStruct',
             'items': [
                 {'size_t': '__size__myStructSize'},
+                {'bool': '__valid__isValid'},
                 {'unsigned long long': 'id'},
                 {'char[80]': 'myCustomClass'},
                 {'size_t': 'classBloat'},
@@ -148,6 +149,7 @@ class TestStructLoader(unittest.TestCase):
         expected_struct_str = ""
         expected_struct_str += "typedef struct {\n"
         expected_struct_str += "\tsize_t __size__myStructSize;\n"
+        expected_struct_str += "\tbool __valid__isValid;\n"
         expected_struct_str += "\tunsigned long long id;\n"
         expected_struct_str += "\tchar[80] myCustomClass;\n"
         expected_struct_str += "\tsize_t classBloat;\n"

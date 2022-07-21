@@ -1,6 +1,6 @@
 # Generic C/C++ BinaryFile Indexer 🗂
 
-##### _TO-DO_: Adicionar bool e `valid_entry` flag no yaml, adicionar isso aos testes. Adicionar `bool` nos types. Utilizar nome padrão da struct (vai ficar mais facil programar)
+##### _TO-DO_: Na programação em C/C++ utilizamos typedef p/ definir o tipo da struct.
 
 A generic indexer for C/C++ binary files. A Project for our Data Management Class in UFSCar
 

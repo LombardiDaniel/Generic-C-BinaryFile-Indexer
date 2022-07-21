@@ -66,7 +66,6 @@ class StructLoader:
 
         return Struct(self.struct)
 
-
     def __read_yaml(self):
         '''
         Purely loads the yaml into a struct_dict.

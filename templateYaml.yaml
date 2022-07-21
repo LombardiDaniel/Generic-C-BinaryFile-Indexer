@@ -1,5 +1,6 @@
 myStruct:
     - size_t: __size__myStructSize # encalpsulates next group
+    - bool: __valid__isValid
     - unsigned long long: id
     - 80: myCustomClass
     - size_t: # Since this item is a list, it is assumed this will be the size descriptor for EACH ITEM in the list

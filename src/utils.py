@@ -8,7 +8,8 @@ from c_data_types import (
     ACCEPTED_STRING_REPRESENTATIONS,
     STRUCT_SIZE_DIRECTIVE,
     NEXT_FIELD_SIZE_DIRECTIVE,
-    C_TYPE_FOR_VARIABLE_SIZE
+    C_TYPE_FOR_VARIABLE_SIZE,
+    VALID_ENTRY_DIRECTIVE
 )
 
 
@@ -73,6 +74,14 @@ class CDataTypes:
         return (
             field_name.startswith(STRUCT_SIZE_DIRECTIVE) or field_name.startswith(NEXT_FIELD_SIZE_DIRECTIVE)
         )
+
+    @staticmethod
+    def is_valid_indicator(field_name):
+        '''
+        Returns if the field is a size indicator.
+        '''
+
+        return field_name.startswith(VALID_ENTRY_DIRECTIVE)
 
     @staticmethod
     def is_struct_size(field_name):

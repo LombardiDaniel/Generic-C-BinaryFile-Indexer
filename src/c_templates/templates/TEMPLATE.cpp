@@ -7,12 +7,15 @@
 
 
 {% obj.c_struct %}
+typedef {% obj.struct_name %} userStruct;
 
-static const size_t SIZE_OF_STRUCT = sizeof({% obj.struct_name %});
+static const size_t SIZE_OF_STRUCT = sizeof(userStruct);
 
 {% if obj.is_variable_size %}
     {obj.c_struct_head} // c_struct_head is first fixed sizes
-    static const size_t SIZE_OF_STRUCT_HEAD = sizeof({% obj.struct_head_name %});
+    typedef {% obj.struct_head_name %} userStructInput;
+
+    static const size_t SIZE_OF_STRUCT_HEAD = sizeof(userStructInput);
 {% endif %}
 
 #define DEBUG                                               {% file.debug|default(0, true) %}
