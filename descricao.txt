@@ -22,6 +22,14 @@ ocorrerá. No momento, pensamos em utilizar a biblioteca de sub-processos do pyt
 
 Módulos necessários:
     - CLI: biblioteca _click: https://click.palletsprojects.com/en/8.1.x/
-    - Criação dos arquivos C/C++: biblioteca cookiecutter: https://github.com/cookiecutter/cookiecutter
+    - Criação dos arquivos C/C++: jinja2 templates: https://www.youtube.com/watch?v=bxhXQG1qJPM
     - Compilação dos arquivos C/C++: GNU G++
     - Interação com os executáveis em C/C++: biblioteca subprocesses: https://www.youtube.com/watch?v=2Fp1N6dof0Y
+
+A divisão de trabalho se dá por (de forma geral):
+    - Daniel: Responsável pelo parser e arquivos em python
+    - Leticia: Responsável pelos arquivos que geram a indexação em C/C++
+    - Vinicius: Responsável pela comunicação entre os arquivos finais (subprocessos em python) e auxiliar na criação de templates
+
+Por mais que essa divisão de trabalho seja feita, os 3 alunos tem responsabilidade de todas as partes
+do projeto, auxiliando os outros.
