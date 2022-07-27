@@ -404,7 +404,6 @@ class Struct:
             self.__iterator_counter = 0
             raise StopIteration
 
-
     def __init__(self, parsed_struct_as_dict):
         self.__iterator_counter = 0
         self.struct_dict = self.__fix_dict(parsed_struct_as_dict)
