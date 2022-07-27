@@ -1,7 +1,7 @@
 from os import path
 import click
 
-from struct_loader import StructLoader
+from struct import StructLoader
 
 # @click.group()
 # def loader_cli():
