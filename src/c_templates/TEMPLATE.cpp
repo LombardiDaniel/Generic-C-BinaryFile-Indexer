@@ -1,5 +1,9 @@
 // This file is to be used as part of a Jinja2 template
 
+
+// error handling:
+//      https://www.youtube.com/watch?v=IZiUT-ipnj0
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

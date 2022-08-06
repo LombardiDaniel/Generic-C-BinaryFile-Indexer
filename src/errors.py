@@ -26,3 +26,10 @@ class UnmatchedSizeDirectivesError(Exception):
     To be raised if the user does not match the ammount of size directives with
     variable sized fields.
     '''
+
+
+class DirectoryIsNotTemplateDir(Exception):
+    '''
+    To be raised if the directory passed as template directory does not contain
+    template files.
+    '''

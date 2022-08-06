@@ -2,6 +2,8 @@
 
 ##### _TO-DO_: Na programação em C/C++ utilizamos typedef p/ definir o tipo da struct.
 
+tbm pode usar getpagesize() pra compilar o código e gerar a melhor indexação pra árvores-B
+
 A generic indexer for C/C++ binary files. A Project for our Data Management Class in UFSCar
 
 -   Daniel Lombardi - 738340
@@ -72,3 +74,14 @@ campos de tamanho variável precisam ser sempre strings.
 Made with [python3.10](https://www.python.org/downloads/release/python-3100/).
 
 Support for bit fields is NOT planned.
+
+
+### Planed Stuff
+
+- [x]
+- [ ]
+
+##### Python
+
+
+##### C/C++ engine

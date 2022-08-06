@@ -34,9 +34,6 @@ def load_struct(yaml_path, verbose):
         click.echo(struct.c_struct_head)
 
 
-
-
-
 # loader_cli.add_command(load_struct)
 
 if __name__ == '__main__':
