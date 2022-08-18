@@ -1,7 +1,7 @@
 '''
 Generates the logic and renders the final C/C++ file.
 '''
-from os import path, system
+from os import path, system, makedirs
 import resource
 import subprocess
 
@@ -72,7 +72,7 @@ class Renderer:
         '''
 
         if not path.isdir(self.target_dir):
-            os.makedirs(self.target_dir)
+            makedirs(self.target_dir)
 
         sh_script = ''
         sh_script += f'cd {self.target_dir} &&'
