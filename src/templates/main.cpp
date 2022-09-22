@@ -1,4 +1,5 @@
 #define PATH "original.txt"
+#include "headers/indexer.hpp"
 
 #include <iostream>
 #include <cstring>
@@ -37,6 +38,8 @@ for reg in file:
 
 */
 
+Indexer (indexer);
+
 struct nodeBlock {
     index_type userField;
     unsigned long long rrn;
@@ -57,7 +60,7 @@ int index_file(char * path, index_type value){
         infile.read(bufferStruct.userField, sizeof(index_type)) ;
         bufferStruct.rrn = (int)current / total_size_of_struct;
 
-        // insert(bufferStruct);
+        indexer(bufferStruct);
    }
    
    infile.close(); 
