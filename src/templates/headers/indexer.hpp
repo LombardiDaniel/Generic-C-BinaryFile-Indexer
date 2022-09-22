@@ -34,6 +34,8 @@ public:
 
 };
 
+
+template <class T> // indexer recebe nodeBlock
 void Indexer::Indexer(T nodeBlock) {
     if(nodeBlock == NULL) 
         this->_logger = utils::Logger(
@@ -44,6 +46,8 @@ void Indexer::Indexer(T nodeBlock) {
     tee.add(nodeBlock);
 }
 
+
+template <class T> // indexer recebe nodeBlock
 int Indexer::read(unsigned const size) {
 
     char *byteBuffer = (char *) malloc(sizeof(char) * size);
@@ -60,6 +64,8 @@ int Indexer::read(unsigned const size) {
     this->fileBuffer = (char *) realloc(this->fileBuffer, this->fileBufferSize);
 }
 
+
+template <class T> // indexer recebe nodeBlock
 void Indexer::seekFromIndex(T key) {
     nodeBlock look;
     look.userField = key;
@@ -74,6 +80,7 @@ void Indexer::seekFromIndex(T key) {
 
 
 
+template <class T> // indexer recebe nodeBlock
 void Idexer::deleteIndex(T nodeBlock){
     tee.deleteTree(nodeBlock);
 }
