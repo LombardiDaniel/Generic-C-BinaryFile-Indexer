@@ -2,10 +2,11 @@
 Generates the logic and renders the final C/C++ file.
 '''
 from os import path, system, makedirs
+import os
 import resource
 import subprocess
 
-import jinja2
+from jinja2 import Environment, FileSystemLoader
 
 from struct import StructLoader, Struct
 from errors import (
@@ -59,24 +60,21 @@ class Renderer:
                 f'{self.__template_dir} does not exist.'
             )
 
-        self.__template_dir = templates_dir
+        self.__template_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates/')
 
     def render(self):
         '''
         Renders the files and copies them to the correct directory.
         '''
 
-    def make(self):
-        '''
-        Compiles the C/C++ files.
-        '''
+        env = Environment(loader=FileSystemLoader(self.__template_dir))
+        main_template = env.get_template('main_TEMPLATE.cppp.j2')
+        rendered_main = main_template.render(
+            struct=self.struct,
+        )
 
-        if not path.isdir(self.target_dir):
-            makedirs(self.target_dir)
-
-
-
-        out = subprocess.run(sh_script, shell=True)
+        with open(os.path.join(self.__template_dir, 'main.cpp'), 'w', encoding='UTF-8') as file:
+            file.write(rendered_main)
 
 
     def make(self):
@@ -89,7 +87,6 @@ class Renderer:
 
         final_command = ''
         final_command += f'cd {self.target_dir} && make indexer'
-        final_command += 'make indexer'
 
         try:
             subprocess.run(
@@ -97,7 +94,7 @@ class Renderer:
                 check=True
             )
         except subprocess.CalledProcessError as exp:
-            click.prompt(f'{exp}::Error in Creating Bucket from pipeline: "{self.pipeline_py}"')
+            print('ERROR in compilation')
 
 # import subprocess
 # out = subprocess.run('ld', shell=True)

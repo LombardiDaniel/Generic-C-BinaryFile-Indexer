@@ -7,8 +7,14 @@ template <class T>
 class BinaryTree
 {
 
-	struct node{
+	struct node {
 		T value;
+
+		// struct nodeBlock {
+		//     {% indexer_c_type %} userField;
+		//     unsigned long long rrn;
+		// };
+
 		struct node* right;
 		struct node* left;
 	};
@@ -17,20 +23,14 @@ public:
 	BinaryTree();
 	~BinaryTree();
 	void add(T val);
-	void printPreOrder();
-	void printInOrder();
-	void printPostOrder();
 	int size();
-	bool lookup(T val);
+	long long lookup(T val);
 
 private:
 	struct node* root;
 	int treeSize;
-	void add(struct node** node, T val);
-	bool lookup(struct node* node, T val);
-	void printPreOrder(struct node* node);
-	void printInOrder(struct node* node);
-	void printPostOrder(struct node* node);
+	void add(struct node** node, T nodeBlock);
+	long long lookup(struct node* node, T nodeBlock);
 	void deleteTree(struct node* node);
 };
 
@@ -51,26 +51,26 @@ int BinaryTree<T>::size(){
 }
 
 template <class T>
-void BinaryTree<T>::add(T val){
-	add(&(this->root), val);
+void BinaryTree<T>::add(T nodeBlock){
+	add(&(this->root), nodeBlock);
 }
 
 template <class T>
-void BinaryTree<T>::add(struct node** node, T val){
+void BinaryTree<T>::add(struct node** node, T nodeBlock){
 
-	if(*node == NULL)	{
+	if (*node == NULL)	{
 		struct node* tmp = new struct node;
-		tmp->value = val;
-		tmp->left=NULL;
+		tmp->value = nodeBlock;
+		tmp->left = NULL;
 		tmp->right = NULL;
 		*node = tmp;
 
 		this->treeSize++;
-	}else{
-		if(val > (*node)->value){
-			add(&(*node)->right, val);
-		}else{
-			add(&(*node)->left, val);
+	} else {
+		if (nodeBlock.userField > (*node)->value) {
+			add(&(*node)->right, nodeBlock);
+		} else {
+			add(&(*node)->left, nodeBlock);
 		}
 	}
 }
@@ -85,23 +85,23 @@ void BinaryTree<T>::deleteTree(struct node* node){
 }
 
 template <class T>
-bool BinaryTree<T>::lookup(T val){
-	return lookup(this->root, val);
+long long BinaryTree<T>::lookup(T nodeBlock){
+	return lookup(this->root, nodeBlock);
 }
 
 template <class T>
-bool BinaryTree<T>::lookup(struct node* node, T val){
-	if(node == NULL){
-		return false;
-	}else{
-		if(val == node->value){
-			return true;
+long long BinaryTree<T>::lookup(struct node* node, T nodeBlock){
+	if (node == NULL) {
+		return -1;
+	} else {
+		if (nodeBlock.userField == node->value.userField) {
+			return nodeBlock.rrn;
 		}
 
-		if(val > node->value){
-			return lookup(node->right, val);
-		}else{
-			return lookup(node->left, val);
+		if (nodeBlock.userField > node->value.userField) {
+			return lookup(node->right, nodeBlock);
+		} else {
+			return lookup(node->left, nodeBlock);
 		}
 	}
 

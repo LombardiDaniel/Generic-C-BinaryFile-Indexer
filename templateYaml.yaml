@@ -7,6 +7,8 @@ myStruct:
         - classBloat # this is part of a list, thus it is limited by the 'size_t' directive that came before it
         - secondClassBloat # part of list, thus same size
     - float: __index__price
+    - float: horario
+    - float: outro
     - char: grade
     # - _: description
 

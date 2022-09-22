@@ -5,15 +5,15 @@
 // #include <string.h>
 #include <iostream>
 #include "utils.hpp"
-#include "btree.h"
+#include "BSTree.hpp"
 
-
+template <class T> // indexer recebe nodeBlock
 class Indexer {
 private:
     FILE *_fp;
     bool _hasValid;
     utils::Logger _logger;
-    BTREE index;
+    BinaryTree<T> index; // árvore é do tipo nodeBlock
 
 public:
     std::string filePath; // path do arquivo que vai ser indexado

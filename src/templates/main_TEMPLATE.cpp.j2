@@ -31,6 +31,17 @@ void log(const char* message);
 void log(const std::string message);
 
 
+// struct nodeBlock {
+//     float userField;
+//     unsigned long long rrn;
+// };
+
+struct nodeBlock {
+    {% indexer_c_type %} userField;
+    long long rrn;
+};
+
+
 int main(int argc, char const *argv[]) {
     // Expected args:
     //      - 0 : TABLE_PATH (str) : path of the table to be indexed
@@ -42,6 +53,7 @@ int main(int argc, char const *argv[]) {
 
     const std::string INDEX_PATH = TABLE_PATH + std::string("_INDEX");
 
+    ind = Indexer<nodeBlock>();
 
     return 0;
 }
