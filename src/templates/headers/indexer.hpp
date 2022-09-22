@@ -36,7 +36,7 @@ public:
 
 
 template <class T> // indexer recebe nodeBlock
-void Indexer::Indexer(T nodeBlock) {
+void Indexer<T>::Indexer(T nodeBlock) {
     if(nodeBlock == NULL)
         this->_logger = utils::Logger(
             (char *) "Indexer",
@@ -48,7 +48,7 @@ void Indexer::Indexer(T nodeBlock) {
 
 
 template <class T> // indexer recebe nodeBlock
-int Indexer::read(unsigned const size) {
+int Indexer<T>::read(unsigned const size) {
 
     char *byteBuffer = (char *) malloc(sizeof(char) * size);
 
@@ -66,7 +66,7 @@ int Indexer::read(unsigned const size) {
 
 
 template <class T> // indexer recebe nodeBlock
-void Indexer::seekFromIndex(T key) {
+void Indexer<T>::seekFromIndex(T key) {
     nodeBlock look;
     look.userField = key;
     if (!tee.lookup(look)){
@@ -81,7 +81,7 @@ void Indexer::seekFromIndex(T key) {
 
 
 template <class T> // indexer recebe nodeBlock
-void Idexer::deleteIndex(T nodeBlock){
+void Indexer<T>::deleteIndex(T nodeBlock){
     tee.deleteTree(nodeBlock);
 }
 
