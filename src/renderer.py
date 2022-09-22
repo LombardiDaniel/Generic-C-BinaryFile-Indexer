@@ -39,43 +39,47 @@ class Renderer:
         return f"sizeof({c_type})"
 
     @staticmethod
-    def char_arr_if_int(c_type):
-        if isinstance(c_type, int):
-            return f'char[{c_type}]'
+    def make_field_name_in_struct(c_type_dict):
+        if isinstance(c_type_dict['key'], int):
+            return f"char {c_type_dict['value']}[{c_type_dict['key']}]"
 
-        return c_type
+        return f"{c_type_dict['key']} {c_type_dict['value']}"
 
-    def __init__(self, struct, indexer_c_type: str, i_index: int, target_dir: str):
+    def __init__(self, struct, indexer_c_type: str, i_index: int, target_dir: str=None):
         self.struct = struct
         self.indexer_c_type = indexer_c_type
         self.__template_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates/')
-        self.target_dir = path.abspath(target_dir)
+        self.target_dir = target_dir
         self.i_index = i_index
 
-    def render(self):
+    def render(self, user_file_path):
         '''
         Renders the files and copies them to the correct directory.
         '''
 
         env = Environment(loader=FileSystemLoader(self.__template_dir))
-        main_template = env.get_template('main_TEMPLATE.cppp.j2')
+        main_template = env.get_template('main_TEMPLATE.cpp.j2')
         env.globals['size_or_size'] = Renderer.size_or_size
-        env.globals['char_arr_if_int'] = Renderer.char_arr_if_int
+        env.globals['make_field_name_in_struct'] = Renderer.make_field_name_in_struct
         rendered_main = main_template.render(
             struct_lst=self.struct['value'],
             indexer_c_type=self.indexer_c_type,
             i_index=self.i_index,
-            sum_str=self.get_size_before_index_sum()
+            sum_str=self.get_size_before_index_sum(),
+            user_file_path=user_file_path,
         )
 
-        with open(os.path.join(self.__template_dir, 'main.cpp'), 'w', encoding='UTF-8') as file:
+        with open(os.path.join(self.__template_dir, 'main_rendered.cpp'), 'w', encoding='UTF-8') as file:
             file.write(rendered_main)
 
     def get_size_before_index_sum(self):
         nw_l = []
         for item in self.struct['value']:
             if not item['value'].startswith('__index__'):
-                nw_l.append(Renderer.size_or_size(item['key']))
+                nw_l.append(str(Renderer.size_or_size(item['key'])))
+
+            else:
+                break
 
         return ' + '.join(nw_l)
 
@@ -84,11 +88,8 @@ class Renderer:
         Compiles using the subprocess module.
         '''
 
-        if not path.isdir(self.target_dir):
-            makedirs(self.target_dir)
-
         final_command = ''
-        final_command += f'cd {self.target_dir} && make indexer'
+        final_command += f'cd {self.__template_dir} && make indexer'
 
         try:
             subprocess.run(
@@ -97,3 +98,7 @@ class Renderer:
             )
         except subprocess.CalledProcessError as exp:
             print('ERROR in compilation')
+
+
+if __name__ == '__main__':
+    pass

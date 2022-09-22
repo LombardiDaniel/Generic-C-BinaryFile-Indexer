@@ -6,7 +6,7 @@ myStruct:
     - float: __index__price
     - float: horario
     - float: outro
-    - char: grade
+    - unsigned char: grade
 
 # {'myStruct': [{'size_t': 'size'},
 #               {'unsigned long long': 'id'},

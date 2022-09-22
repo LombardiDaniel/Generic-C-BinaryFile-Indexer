@@ -25,6 +25,13 @@ class StructLoader:
                 if self.struct_dict['value'][i]['value'].startswith('__index__'):
                     self.i_index = i
 
+    @property
+    def indexer_c_type(self):
+        for item in self.struct_dict['value']:
+            if item['value'].startswith('__index__'):
+                return item['key']
+
+
 if __name__ == '__main__':
     from pprint import pprint
     a = StructLoader(yaml_path='../templateYaml.yaml')

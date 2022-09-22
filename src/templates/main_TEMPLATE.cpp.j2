@@ -6,35 +6,30 @@
 #include <iostream>
 
 
+#define DEBUG                                               true
+#define USER_FILE_PATH "{{user_file_path}}"
+
+typedef {{ indexer_c_type }} indexed_data_type;
 
 struct {
     {% for field in struct_lst %}
-        {{ char_arr_if_int(field.key) }} {{field.name}};
+        {{ make_field_name_in_struct(field) }};
     {% endfor %}
 } userStruct;
 
 static const size_t SIZE_OF_STRUCT = sizeof(userStruct);
 static const size_t SIZE_BEFORE_INDEX = {{sum_str}};
 
-
-#define DEBUG                                               true
+struct nodeBlock {
+    {{ indexer_c_type }} userField;
+    unsigned long long rrn;
+};
 
 
 template<typename... Args>
 void log(const char* message, Args... args);
 void log(const char* message);
 void log(const std::string message);
-
-
-struct nodeBlock {
-    float userField;
-    unsigned long long rrn;
-};
-
-// struct nodeBlock {
-//     {% indexer_c_type %} userField;
-//     unsigned long long rrn;
-// };
 
 
 int main(int argc, char const *argv[]) {
