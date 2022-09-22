@@ -1,28 +1,23 @@
 // This file is to be used as part of a Jinja2 template
 
-
-// error handling:
-//      https://www.youtube.com/watch?v=IZiUT-ipnj0
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <iostream>
 
 
-{% obj.c_struct %}
-typedef {% obj.struct_name %} userStruct;
+
+struct {
+    {% for field in struct_lst %}
+        {{ char_arr_if_int(field.key) }} {{field.name}};
+    {% endfor %}
+} userStruct;
 
 static const size_t SIZE_OF_STRUCT = sizeof(userStruct);
+static const size_t SIZE_BEFORE_INDEX = {{sum_str}};
 
-{% if obj.is_variable_size %}
-    {obj.c_struct_head} // c_struct_head is first fixed sizes
-    typedef {% obj.struct_head_name %} userStructInput;
 
-    static const size_t SIZE_OF_STRUCT_HEAD = sizeof(userStructInput);
-{% endif %}
-
-#define DEBUG                                               {% file.debug|default(0, true) %}
+#define DEBUG                                               true
 
 
 template<typename... Args>
@@ -31,15 +26,15 @@ void log(const char* message);
 void log(const std::string message);
 
 
-// struct nodeBlock {
-//     float userField;
-//     unsigned long long rrn;
-// };
-
 struct nodeBlock {
-    {% indexer_c_type %} userField;
+    float userField;
     unsigned long long rrn;
 };
+
+// struct nodeBlock {
+//     {% indexer_c_type %} userField;
+//     unsigned long long rrn;
+// };
 
 
 int main(int argc, char const *argv[]) {

@@ -30,10 +30,10 @@ int Indexer::read(unsigned const size) {
     this->fileBuffer = (char *) realloc(this->fileBuffer, this->fileBufferSize);
 }
 
-void Indexer::seekFromIndex(index key) {
+void Indexer::seekFromIndex(NodeBlock nb) {
     if (!tee.lookup(key)){
         this->_logger.error(
-            "Unable to SEEK %p from file %s.\n", 
+            "Unable to SEEK %p from file %s.\n",
             this->key, this->filePath);
         return 1;
     }

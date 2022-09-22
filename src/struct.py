@@ -43,6 +43,13 @@ class StructLoader:
 
         return self.__str__()
 
+    @property
+    def index_field(self):
+        for field in self._struct_dict['fields']:
+            for k, v in field.items():
+                if v.startswith('__index__'):
+                    return k
+
     def __init__(self, yaml_path=None, *args, **kwargs):
         self.yaml_path = yaml_path
         self.struct = {}
@@ -344,9 +351,11 @@ class Struct:
                         'name': myStructSize
                     }
                 ]
+
         - self.struct_name (str) : name of the struct defined by the user
         - self.struct_head_name (str) : name of the struct head used in the program
         - self.is_variable_size (bool) : True if struct contains a variable size field
+        - self.index_field (str) : type of field to be indexed
 
     Methods:
         - __fix_dict() : fixes the "keys contain info" problem
@@ -361,6 +370,11 @@ class Struct:
         '''
 
         return self.__str__()
+
+    @property
+    def index_field(self):
+        for k, v in self.struct_dict.items():
+            pass
 
     @property
     def c_struct_head(self):

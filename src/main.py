@@ -2,6 +2,7 @@ from os import path
 import click
 
 from struct import StructLoader
+from renderer import Renderer
 
 # @click.group()
 # def loader_cli():
@@ -24,15 +25,15 @@ def load_struct(yaml_path, verbose):
     if verbose:
         click.echo(f'Loading YAML file from: "{yaml_path}"')
 
-    struct = StructLoader(yaml_path).generate_struct()
+    s_l = StructLoader(yaml_path)
+    struct = s_l.generate_struct()
+    index_field = s_l.index_field
 
     if verbose:
         click.echo('\nStruct:\n')
         click.echo(struct.c_struct)
 
-        click.echo('\nStruct Head:\n')
-        click.echo(struct.c_struct_head)
-
+    r = Renderer(struct, index_field)
 
 # loader_cli.add_command(load_struct)
 

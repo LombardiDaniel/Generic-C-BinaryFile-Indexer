@@ -28,10 +28,11 @@ public:
     int read(unsigned const size);
 
     void seekFromIndex(void *key);
-
-
 };
 
+
+// definição de funções:
+// ...
 
 
 #endif
