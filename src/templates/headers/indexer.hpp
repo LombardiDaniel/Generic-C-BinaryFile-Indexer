@@ -27,17 +27,8 @@ public:
 
     int read(unsigned const size);
 
-<<<<<<< HEAD
-    void seekFromIndex(void *key);
-};
+    void seekFromIndex(T key); // Isso vai pegar key de uma váriavel
 
-
-// definição de funções:
-// ...
-
-=======
-    void seekFromIndex(T key); // Isso vai pegar key de uma váriavel 
-    
     void deleteIndex(T nodeBlock);
 
 
@@ -46,7 +37,7 @@ public:
 
 template <class T> // indexer recebe nodeBlock
 void Indexer::Indexer(T nodeBlock) {
-    if(nodeBlock == NULL) 
+    if(nodeBlock == NULL)
         this->_logger = utils::Logger(
             (char *) "Indexer",
             (char *) "indexer.log",
@@ -80,7 +71,7 @@ void Indexer::seekFromIndex(T key) {
     look.userField = key;
     if (!tee.lookup(look)){
         this->_logger.error(
-            "Unable to SEEK %p from file %s.\n", 
+            "Unable to SEEK %p from file %s.\n",
             this->key, this->filePath);
         return 1;
     }
@@ -93,6 +84,5 @@ template <class T> // indexer recebe nodeBlock
 void Idexer::deleteIndex(T nodeBlock){
     tee.deleteTree(nodeBlock);
 }
->>>>>>> 4ce9413c12a79250e419f0c36ed6b2b555764de7
 
 #endif
