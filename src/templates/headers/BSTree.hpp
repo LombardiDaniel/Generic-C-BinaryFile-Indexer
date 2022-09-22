@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-template <class T>
+template <class T> // árvore é do tipo nodeBlock
 class BinaryTree
 {
 
@@ -24,13 +24,13 @@ public:
 	~BinaryTree();
 	void add(T val);
 	int size();
-	long long lookup(T val);
+	bool lookup(T &nodeBlock); // lookup precisa de um nodeBlock
 
 private:
 	struct node* root;
 	int treeSize;
 	void add(struct node** node, T nodeBlock);
-	long long lookup(struct node* node, T nodeBlock);
+	bool lookup(struct node* node, T &nodeBlock);
 	void deleteTree(struct node* node);
 };
 
@@ -85,17 +85,18 @@ void BinaryTree<T>::deleteTree(struct node* node){
 }
 
 template <class T>
-long long BinaryTree<T>::lookup(T nodeBlock){
+bool BinaryTree<T>::lookup(T &nodeBlock){
 	return lookup(this->root, nodeBlock);
 }
 
 template <class T>
-long long BinaryTree<T>::lookup(struct node* node, T nodeBlock){
+bool BinaryTree<T>::lookup(struct node* node, T &nodeBlock){
 	if (node == NULL) {
-		return -1;
+		return false;
 	} else {
 		if (nodeBlock.userField == node->value.userField) {
-			return nodeBlock.rrn;
+			nodeBlock.rrn = node->value.rrn;
+			return true;
 		}
 
 		if (nodeBlock.userField > node->value.userField) {
@@ -104,7 +105,6 @@ long long BinaryTree<T>::lookup(struct node* node, T nodeBlock){
 			return lookup(node->left, nodeBlock);
 		}
 	}
-
 }
 
 // int main(){
