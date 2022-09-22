@@ -23,7 +23,7 @@ public:
     char *fileBuffer; // Alocado e Re-alocado on-copy
     unsigned long fileBufferSize;
 
-    void indexer(T nodeBlock);
+    void add(T nodeBlock);
 
     int read(unsigned const size);
 
@@ -36,7 +36,7 @@ public:
 
 
 template <class T> // indexer recebe nodeBlock
-void Indexer<T>::Indexer(T nodeBlock) {
+void Indexer<T>::add(T nodeBlock) {
     if(nodeBlock == NULL)
         this->_logger = utils::Logger(
             (char *) "Indexer",

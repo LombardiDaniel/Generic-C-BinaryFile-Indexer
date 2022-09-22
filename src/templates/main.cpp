@@ -60,7 +60,7 @@ int index_file(char * path, index_type value){
         infile.read(bufferStruct.userField, sizeof(index_type)) ;
         bufferStruct.rrn = (int)current / total_size_of_struct;
 
-        indexer(bufferStruct);
+        indexer.add(bufferStruct);
    }
    
    infile.close(); 
@@ -68,7 +68,7 @@ int index_file(char * path, index_type value){
 }
 
 int search(char * path, index_type value){
-
+    indexer.seekFromIndex(value);
 }
 
 int main(int argc, char const* argv[]){
