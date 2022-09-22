@@ -23,26 +23,25 @@ public:
     char *fileBuffer; // Alocado e Re-alocado on-copy
     unsigned long fileBufferSize;
 
-    Indexer ();
-    virtual ~Indexer ();
+    void indexer(T nodeBlock);
 
     int read(unsigned const size);
 
-    void seekFromIndex(T key);
+    void seekFromIndex(T key); // Isso vai pegar key de uma váriavel 
     
-    void in
+    void deleteIndex(T nodeBlock);
 
 
 };
 
-Indexer::Indexer() {
-    this->_logger = utils::Logger(
-        (char *) "Indexer",
-        (char *) "indexer.log",
-        utils::Logger::Debug
-    );
-
-    this->_logger.setDebug();
+void Indexer::Indexer(T nodeBlock) {
+    if(nodeBlock == NULL) 
+        this->_logger = utils::Logger(
+            (char *) "Indexer",
+            (char *) "indexer.log",
+            utils::Logger::Debug
+        );
+    tee.add(nodeBlock);
 }
 
 int Indexer::read(unsigned const size) {
@@ -61,17 +60,22 @@ int Indexer::read(unsigned const size) {
     this->fileBuffer = (char *) realloc(this->fileBuffer, this->fileBufferSize);
 }
 
-void Indexer::seekFromIndex(index key) {
-    if (!tee.lookup(key)){
+void Indexer::seekFromIndex(T key) {
+    nodeBlock look;
+    look.userField = key;
+    if (!tee.lookup(look)){
         this->_logger.error(
             "Unable to SEEK %p from file %s.\n", 
             this->key, this->filePath);
         return 1;
     }
-    return key.rrn;
+    return look.rrn;
 }
 
 
-void Idexer::indexar
+
+void Idexer::deleteIndex(T nodeBlock){
+    tee.deleteTree(nodeBlock);
+}
 
 #endif
