@@ -43,6 +43,8 @@ class Renderer:
         if isinstance(c_type, int):
             return f'char[{c_type}]'
 
+        return c_type
+
     def __init__(self, struct, indexer_c_type: str, i_index: int, target_dir: str):
         self.struct = struct
         self.indexer_c_type = indexer_c_type
