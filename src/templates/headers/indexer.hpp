@@ -1,5 +1,6 @@
 #ifndef INDEXER_HPP
 #define INDEXER_HPP
+#include <stdio.h>
 
 // #include <stdlib.h>
 // #include <string.h>
@@ -22,11 +23,11 @@ public:
     char *fileBuffer; // Alocado e Re-alocado on-copy
     unsigned long fileBufferSize;
 
-    Indexer ();
-    virtual ~Indexer ();
+    void indexer(T nodeBlock);
 
     int read(unsigned const size);
 
+<<<<<<< HEAD
     void seekFromIndex(void *key);
 };
 
@@ -34,5 +35,64 @@ public:
 // definição de funções:
 // ...
 
+=======
+    void seekFromIndex(T key); // Isso vai pegar key de uma váriavel 
+    
+    void deleteIndex(T nodeBlock);
+
+
+};
+
+
+template <class T> // indexer recebe nodeBlock
+void Indexer::Indexer(T nodeBlock) {
+    if(nodeBlock == NULL) 
+        this->_logger = utils::Logger(
+            (char *) "Indexer",
+            (char *) "indexer.log",
+            utils::Logger::Debug
+        );
+    tee.add(nodeBlock);
+}
+
+
+template <class T> // indexer recebe nodeBlock
+int Indexer::read(unsigned const size) {
+
+    char *byteBuffer = (char *) malloc(sizeof(char) * size);
+
+    if (len != fread(&byteBuffer, sizeof(char), len, this->_fp)) {
+        this->_logger.error(
+            "Unable to READ bytes in %d, from file %s.\n",
+            this->_fp,
+            this->filePath);
+        return 1;
+    }
+
+    this->fileBufferSize += len;
+    this->fileBuffer = (char *) realloc(this->fileBuffer, this->fileBufferSize);
+}
+
+
+template <class T> // indexer recebe nodeBlock
+void Indexer::seekFromIndex(T key) {
+    nodeBlock look;
+    look.userField = key;
+    if (!tee.lookup(look)){
+        this->_logger.error(
+            "Unable to SEEK %p from file %s.\n", 
+            this->key, this->filePath);
+        return 1;
+    }
+    return look.rrn;
+}
+
+
+
+template <class T> // indexer recebe nodeBlock
+void Idexer::deleteIndex(T nodeBlock){
+    tee.deleteTree(nodeBlock);
+}
+>>>>>>> 4ce9413c12a79250e419f0c36ed6b2b555764de7
 
 #endif
