@@ -33,7 +33,8 @@ class Renderer:
 
     def __init__(self, struct: Struct, target_dir: str):
         self.struct = struct
-        self.page_size = resource.getpagesize()
+        # self.
+        self.page_size = resource.getpagesize()  # deprecated
         self.__template_dir = None
         self.target_dir = path.abspath(target_dir)
 
@@ -73,11 +74,30 @@ class Renderer:
         if not path.isdir(self.target_dir):
             makedirs(self.target_dir)
 
-        sh_script = ''
-        sh_script += f'cd {self.target_dir} &&'
-        sh_script += f'make indexer.elf'
+
 
         out = subprocess.run(sh_script, shell=True)
+
+
+    def make(self):
+        '''
+        Compiles using the subprocess module.
+        '''
+
+        if not path.isdir(self.target_dir):
+            makedirs(self.target_dir)
+
+        final_command = ''
+        final_command += f'cd {self.target_dir} && make indexer'
+        final_command += 'make indexer'
+
+        try:
+            subprocess.run(
+                ['/bin/sh', '-c', final_command],
+                check=True
+            )
+        except subprocess.CalledProcessError as exp:
+            click.prompt(f'{exp}::Error in Creating Bucket from pipeline: "{self.pipeline_py}"')
 
 # import subprocess
 # out = subprocess.run('ld', shell=True)

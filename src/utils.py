@@ -137,3 +137,7 @@ class Utils:
             return num
         except ValueError:
             return False
+
+    @staticmethod
+    def is_size_indicator(string):
+        return string.startswith('__size__') or string.startswith('_size_')

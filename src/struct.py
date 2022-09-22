@@ -142,12 +142,14 @@ class StructLoader:
                             {k: item_}
                         )
 
-                elif quant := Utils.is_number(k):  # is a number (ammount of bytes)
+                elif Utils.is_number(k):  # is a number (ammount of bytes)
+                    quant = Utils.is_number(k)
                     self.struct['items'].append(
                         {CDataTypes.byte_arr(quant): v}
                     )
 
-                elif std_string := CDataTypes.is_str(k):
+                elif CDataTypes.is_str(k):
+                    std_string = CDataTypes.is_str(k)
                     self.struct['items'].append(
                         {std_string: v}
                     )
