@@ -37,6 +37,20 @@ namespace utils {
         return (stat (filePath.c_str(), &buffer) == 0);
     }
 
+    char *toUpperCase(char *charArr) {
+        // Precisa garantir que tem um char nulo no final, pra sair do do_while
+
+        int i = 0;
+        do // garante que o 6º bit menos significativo seja zero
+                charArr[i] = charArr[i] & ~0x20;    // 0x20 = 32 = 0b00100000z
+        while(charArr[++i]);
+
+        return &charArr[0];
+    }
+
+    inline char toUpperCase(char &c) {
+        return c &= ~32;
+    }
 
     std::string getNextFileName(const std::string sDir, std::string filePattern) {
         // This functions gets the next file name for saving "screen shots".

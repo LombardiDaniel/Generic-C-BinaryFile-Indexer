@@ -25,6 +25,10 @@ namespace utils {
 
     std::string getNextFileName(const std::string sDir, std::string filePattern);
 
+    char *toUpperCase(char *string);
+    
+    inline char toUpperCase(char &c);
+
     template <typename T>
     T modulus(T val) {
         if (val >= 0)

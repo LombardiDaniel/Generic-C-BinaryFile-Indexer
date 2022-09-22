@@ -7,7 +7,7 @@ import subprocess
 
 import jinja2
 
-from struct import StructLoader, Strut
+from struct import StructLoader, Struct
 from errors import (
     DirectoryIsNotTemplateDir
 )
@@ -50,11 +50,10 @@ class Renderer:
             raise DirectoryIsNotTemplateDir(
                 'template_dir already set.'
             )
-            return
 
         templates_dir = path.abspath(templates_dir)
 
-        if not path.is_dir(self.__template_dir):
+        if not path.isdir(self.__template_dir):
             raise DirectoryIsNotTemplateDir(
                 f'{self.__template_dir} does not exist.'
             )
