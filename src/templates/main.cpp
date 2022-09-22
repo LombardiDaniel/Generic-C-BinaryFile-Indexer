@@ -1,4 +1,5 @@
 #define PATH "original.txt"
+#include "headers/indexer.hpp"
 
 #include <iostream>
 #include <cstring>
@@ -21,7 +22,7 @@ typedef struct {
 
 
 
-int size_before_indexed = sizeof(unsigned long long) +
+int size_before_indexed = sizeof(unsigned long long) + 
                       80 + sizeof(size_t) + sizeof(size_t);
 int total_size_of_struct = sizeof(myStruct);
 /*
@@ -37,13 +38,15 @@ for reg in file:
 
 */
 
+Indexer (indexer);
+
 struct nodeBlock {
     index_type userField;
     unsigned long long rrn;
 };
 
 int index_file(char * path, index_type value){
-   std::ifstream infile;
+   std::ifstream infile; 
    infile.open("PATH");
    int current = size_before_indexed;
 
@@ -57,15 +60,15 @@ int index_file(char * path, index_type value){
         infile.read(bufferStruct.userField, sizeof(index_type)) ;
         bufferStruct.rrn = (int)current / total_size_of_struct;
 
-        // insert(bufferStruct);
+        indexer.add(bufferStruct);
    }
-
-   infile.close();
+   
+   infile.close(); 
    return 0;
 }
 
 int search(char * path, index_type value){
-
+    indexer.seekFromIndex(value);
 }
 
 int main(int argc, char const* argv[]){
@@ -73,13 +76,13 @@ int main(int argc, char const* argv[]){
     {
         // Mensagem de erro aí
         return 1;
-    }
+    } 
     if(strcmp(toUpperCase(argv[1]), "INDEX") == 0){
         index_file(PATH, (index_type)*argv[1]);
     } else if(strcmp(toUpperCase(argv[1]), "SEARCH") == 0){
-        search(PATH, (index_type)argv[1]);
+        search(PATH, (index_type)argv[1]); 
     }
-
+    
 }
 
 /*
