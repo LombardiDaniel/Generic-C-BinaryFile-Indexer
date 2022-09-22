@@ -1,14 +1,14 @@
 myStruct:
-    - size_t: __size__myStructSize # encalpsulates next group
+    # - size_t: __size__myStructSize # encalpsulates next group
     - bool: __valid__isValid
     - unsigned long long: id
     - 80: myCustomClass
     - size_t: # Since this item is a list, it is assumed this will be the size descriptor for EACH ITEM in the list
         - classBloat # this is part of a list, thus it is limited by the 'size_t' directive that came before it
         - secondClassBloat # part of list, thus same size
-    - float: price
+    - float: __index__price
     - char: grade
-    - _: description
+    # - _: description
 
 
 # typedef struct {
@@ -17,7 +17,7 @@ myStruct:
 #         char[80] myCustomClass;
 #         size_t classBloat;
 #         size_t secondClassBloat;
-#         float price;
+#         float price; __index__
 #         char grade;
 #         std::string description;
 # } myStruct;

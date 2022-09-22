@@ -14,9 +14,9 @@ Indexer::Indexer() {
     this->_logger.setDebug();
 }
 
-int Indexer::readStr(unsigned const len) {
+int Indexer::read(unsigned const size) {
 
-    char *byteBuffer = (char *) malloc(sizeof(char) * len);
+    char *byteBuffer = (char *) malloc(sizeof(char) * size);
 
     if (len != fread(&byteBuffer, sizeof(char), len, this->_fp)) {
         this->_logger.error(
@@ -31,5 +31,5 @@ int Indexer::readStr(unsigned const len) {
 }
 
 void Indexer::readSize(unsigned const size) {
-    
+
 }

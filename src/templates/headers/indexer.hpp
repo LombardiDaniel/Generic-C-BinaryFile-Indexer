@@ -25,8 +25,7 @@ public:
     Indexer ();
     virtual ~Indexer ();
 
-    int readStr(unsigned const len);     // le string de tamanho `len`
-    int readSize(unsigned const size);   // le item de tamanho `size`
+    int read(unsigned const size);
 
     void seekFromIndex(void *key);
 
