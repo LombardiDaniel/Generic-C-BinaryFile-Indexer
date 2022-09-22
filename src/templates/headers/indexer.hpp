@@ -27,7 +27,9 @@ public:
 
     int read(unsigned const size);
 
-    void seekFromIndex(void *key);
+    void seekFromIndex(T key);
+    
+    void in
 
 
 };
