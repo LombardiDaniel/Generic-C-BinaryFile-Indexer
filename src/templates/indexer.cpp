@@ -2,7 +2,6 @@
 
 #include "headers/indexer.hpp"
 // #include "headers/utils.hpp"
-#include "headers/BSTree.hpp"
 
 
 Indexer::Indexer() {
@@ -31,14 +30,14 @@ int Indexer::read(unsigned const size) {
     this->fileBuffer = (char *) realloc(this->fileBuffer, this->fileBufferSize);
 }
 
-void Indexer::seekFromIndex(void *key) {
+void Indexer::seekFromIndex(index *key) {
     if (!tee.lookup(key)){
-     this->_logger.error(
-         "Unable to SEEK %p from file %s.\n", 
-         this-> Key, this->filePath);
-        return 1;
+        this->_logger.error(
+            "Unable to SEEK %p from file %s.\n", 
+            this-> Key, this->filePath);
+        return 0;
     }
-    return tee.lookup(key);
+    return 1;
 }
 
 
