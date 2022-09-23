@@ -107,39 +107,4 @@ bool BinaryTree<T>::lookup(struct node* node, T &nodeBlock){
 	}
 }
 
-// int main(){
-//
-// 	BinaryTree<int> tree;
-//
-// 	tree.add(5);
-// 	tree.add(4);
-// 	tree.add(7);
-// 	tree.add(10);
-// 	tree.add(1);
-// 	tree.add(2);
-//
-// 	tree.printPostOrder();
-// 	tree.printInOrder();
-// 	tree.printPreOrder();
-//
-// 	std::cout << "Tree size: " << tree.size() << std::endl;
-//
-// 	BinaryTree<char> tee;
-//
-// 	tee.add('z');
-// 	tee.add('0');
-// 	tee.add('9');
-// 	tee.add('a');
-// 	tee.add('A');
-// 	tee.add('Z');
-//
-// 	std::cout << "Contains 9? : "<< ((tee.lookup('9'))? "true" : "false" ) << std::endl;
-//
-// 	tee.printPostOrder();
-// 	tee.printInOrder();
-// 	tee.printPreOrder();
-//
-// 	std::cout << "Tree size: " << tee.size() << std::endl;
-// }
-
 #endif // BSTREE
