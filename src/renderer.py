@@ -45,7 +45,7 @@ class Renderer:
 
         return f"{c_type_dict['key']} {c_type_dict['value']}"
 
-    def __init__(self, struct, indexer_c_type: str, i_index: int, target_dir: str=None):
+    def __init__(self, struct, indexer_c_type: str, i_index: int, target_dir: str = None):
         self.struct = struct
         self.indexer_c_type = indexer_c_type
         self.__template_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates/')

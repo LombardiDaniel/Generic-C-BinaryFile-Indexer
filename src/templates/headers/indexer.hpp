@@ -2,13 +2,13 @@
 #define INDEXER_HPP
 #include <stdio.h>
 
-// #include <stdlib.h>
+// #include<stdlib.h>
 // #include <string.h>
 #include <iostream>
 #include "utils.hpp"
 #include "BSTree.hpp"
 
-template <class T> // indexer recebe nodeBlock
+template<class T> // indexer recebe nodeBlock
 class Indexer {
 private:
     FILE *_fp;
@@ -35,7 +35,7 @@ public:
 };
 
 
-template <class T> // indexer recebe nodeBlock
+template<class T> // indexer recebe nodeBlock
 void Indexer<T>::add(T nodeBlock) {
     if(nodeBlock == NULL)
         this->_logger = utils::Logger(
@@ -47,7 +47,7 @@ void Indexer<T>::add(T nodeBlock) {
 }
 
 
-template <class T> // indexer recebe nodeBlock
+template<class T> // indexer recebe nodeBlock
 int Indexer<T>::read(unsigned const size) {
 
     char *byteBuffer = (char *) malloc(sizeof(char) * size);
@@ -65,7 +65,7 @@ int Indexer<T>::read(unsigned const size) {
 }
 
 
-template <class T> // indexer recebe nodeBlock
+template<class T> // indexer recebe nodeBlock
 void Indexer<T>::seekFromIndex(T key) {
     nodeBlock look;
     look.userField = key;
@@ -80,7 +80,7 @@ void Indexer<T>::seekFromIndex(T key) {
 
 
 
-template <class T> // indexer recebe nodeBlock
+template<class T> // indexer recebe nodeBlock
 void Indexer<T>::deleteIndex(T nodeBlock){
     tee.deleteTree(nodeBlock);
 }
