@@ -46,9 +46,11 @@ int index_file(char * path) {
    infile.open(PATH);
 
     struct nodeBlock bufferStruct;
-    
+
     FILE *fp = fopen(PATH, "rb");
     myStruct tmp;
+    // fseek(fp, rrn, SEEK_START);
+    // https://www.tutorialspoint.com/c_standard_library/c_function_fseek.htm
     while (fread(&tmp, sizeof(myStruct), 1, fp)) {
         bufferStruct.rrn = ftell(fp) - sizeof(myStruct);
         // bufferStruct.userField = tmp.{{ indexer_c_name }};
