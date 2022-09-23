@@ -60,9 +60,11 @@ int index_file(char * path) {
     }
     FILE *fp = fopen(PATH, "rb");
     myStruct tmp;
+    index_type value;
     fread(&tmp, size_before_indexed, 1, fp);
-    while (fread(&tmp, sizeof(index_type), 1, fp)) {
+    while (fread(&value, sizeof(index_type), 1, fp)) {
         bufferStruct.rrn = ftell(fp);
+        bufferStruct.userField = value;
     }
 
     infile.close();
