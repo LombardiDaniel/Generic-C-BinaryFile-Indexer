@@ -69,7 +69,8 @@ Para ver os tipos de dados aceitos na yaml, ver o arquivo [src/c_data_types.py](
 ### Limitações:
 
 Não consegue ler campos ou registros separados por limitadores.
-campos de tamanho variável precisam ser sempre strings.
+Não consegue ler campos de tamanho variável.
+__aligned__
 
 Made with [python3.10](https://www.python.org/downloads/release/python-3100/).
 
