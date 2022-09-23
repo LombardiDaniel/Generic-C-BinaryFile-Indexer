@@ -22,4 +22,4 @@ if __name__ == '__main__':
 
     renderer.make()
 
-# python main.py --yaml ../templateYaml.yaml --db /Users/daniellombardi/Desktop/UFSCar/_current.nosync/ORI/TRAB/Generic-C-BinaryFile-Indexer/descricao.txt
+# python main.py --yaml "../templateYaml.yaml" --db "/Users/daniellombardi/Desktop/UFSCar/_current.nosync/ORI/TRAB/Generic-C-BinaryFile-Indexer/src/tester/table"

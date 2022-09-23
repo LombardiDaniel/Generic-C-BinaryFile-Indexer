@@ -7,7 +7,7 @@
 
 
 #define DEBUG                                               true
-#define USER_FILE_PATH "/Users/daniellombardi/Desktop/UFSCar/_current.nosync/ORI/NPs/2/table"
+#define USER_FILE_PATH "/Users/daniellombardi/Desktop/UFSCar/_current.nosync/ORI/TRAB/Generic-C-BinaryFile-Indexer/src/tester/table"
 #define INDEXER_C_TYPE "unsigned int"
 
 typedef unsigned int indexed_data_type;
@@ -168,8 +168,10 @@ void *castToType(char *arg) { // vai ser utilizada no search
         *tmp = atoi((char *) arg);
     } else if (strcmp(INDEXER_C_TYPE, "unsigned int") == 0) {
        *tmp = atoi((char *) arg);
-    } else if (strcmp(INDEXER_C_TYPE, "long long int") == 0) {
+    // } else if (strcmp(INDEXER_C_TYPE, "long long int") == 0) {
         // *tmp = strtoll((char *) arg, NULL);
+    } else {
+        *tmp = atoi((char *) arg);
     }
 
     return tmp;
