@@ -34,31 +34,19 @@ for reg in file:
 
 */
 
-Indexer (indexer);
-
 struct nodeBlock {
     index_type userField;
     unsigned long long rrn;
 };
 
+static Indexer<nodeBlock> indexer;
+
 int index_file(char * path) {
    std::ifstream infile;
    infile.open(PATH);
-   int current = size_before_indexed;
 
     struct nodeBlock bufferStruct;
-
-    // while (!EOF) {
-    //
-    //     infile.seekg(current, std::ios::beg);
-    //
-    //     current = size_before_indexed + total_size_of_struct;
-    //     infile.read(bufferStruct.userField, sizeof(index_type));
-    //     bufferStruct.rrn = (int)current / total_size_of_struct;
-    //
-    //     indexer.add(bufferStruct);
-    // }
-
+    
     FILE *fp = fopen(PATH, "rb");
     myStruct tmp;
     while (fread(&tmp, sizeof(myStruct), 1, fp)) {
