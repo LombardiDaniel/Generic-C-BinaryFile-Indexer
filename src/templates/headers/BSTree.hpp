@@ -12,7 +12,7 @@ class BinaryTree
 
 		// struct nodeBlock {
 		//     {% indexer_c_type %} userField;
-		//     unsigned long long ofset;
+		//     unsigned long long offset;
 		// };
 
 		struct node* right;
@@ -95,7 +95,7 @@ bool BinaryTree<T>::lookup(struct node* node, T &nodeBlock){
 		return false;
 	} else {
 		if (nodeBlock.userField == node->value.userField) {
-			nodeBlock.ofset = node->value.ofset;
+			nodeBlock.offset = node->value.offset;
 			return true;
 		}
 

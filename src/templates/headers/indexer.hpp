@@ -70,7 +70,7 @@ unsigned long long Indexer<T>::seekFromIndex(T &block) {
     if (!this->index.lookup(block))
         return 1;
 
-    return block.ofset;
+    return block.offset;
 }
 
 

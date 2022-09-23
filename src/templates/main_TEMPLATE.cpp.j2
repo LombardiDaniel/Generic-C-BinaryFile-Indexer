@@ -29,9 +29,15 @@ static const size_t SIZE_OF_HEAD = sizeof(userStructHead);
 
 struct nodeBlock {
     {{ indexer_c_type }} userField;
-    unsigned long long ofset;
+    unsigned long long offset;
 };
 // need to save "{{ indexer_c_name }}"
+
+static Indexer<nodeBlock> indexer;
+
+// functions
+int index_file(char * path);
+void *castToType(void *arg);
 
 template<typename... Args>
 void log(const char* message, Args... args);
@@ -62,7 +68,6 @@ void log(const char* message, Args... args) {
         printf(message, args...);
 }
 
-
 void log(const char* message) {
     if (DEBUG)
         printf("%s", message);
@@ -71,4 +76,32 @@ void log(const char* message) {
 void log(const std::string message) {
     if (DEBUG)
         std::cout << message << '\n';
+}
+
+int index_file(char * path) {
+   std::ifstream infile;
+   infile.open(USER_FILE_PATH);
+
+    struct nodeBlock bufferStruct;
+
+    FILE *fp = fopen(USER_FILE_PATH, "rb");
+    myStruct tmp;
+    while (fread(&tmp, sizeof(myStruct), 1, fp)) {
+        bufferStruct.offset = ftell(fp) - sizeof(myStruct);
+        bufferStruct.userField = tmp.{{ indexer_c_name }};
+        indexer.add(bufferStruct);
+    }
+
+    infile.close();
+    return 0;
+}
+
+void *castToType(void *arg) { // vai ser utilizada no search
+    if (strcmp(INDEXER_C_TYPE, "float") == 0) {
+        float *tmp = (float *) malloc(sizeof(float) * 1);
+        *tmp = atof((char *) arg);
+        return tmp;
+    } else if () {
+
+    }
 }
