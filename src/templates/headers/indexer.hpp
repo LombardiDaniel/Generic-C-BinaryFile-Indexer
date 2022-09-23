@@ -13,7 +13,7 @@ class Indexer {
 private:
     FILE *_fp;
     bool _hasValid;
-    utils::Logger _logger;
+    // utils::Logger _logger;
     BinaryTree<T> index; // árvore é do tipo nodeBlock
 
 public:
@@ -27,7 +27,7 @@ public:
 
     int read(unsigned const size);
 
-    void seekFromIndex(T key); // Isso vai pegar key de uma váriavel
+    unsigned long long seekFromIndex(T key); // Isso vai pegar key de uma váriavel
 
     void deleteIndex(T nodeBlock);
 
@@ -37,13 +37,13 @@ public:
 
 template<class T> // indexer recebe nodeBlock
 void Indexer<T>::add(T nodeBlock) {
-    if(nodeBlock == NULL)
-        this->_logger = utils::Logger(
-            (char *) "Indexer",
-            (char *) "indexer.log",
-            utils::Logger::Debug
-        );
-    tee.add(nodeBlock);
+    // if(nodeBlock == NULL)
+        // this->_logger = utils::Logger(
+        //     (char *) "Indexer",
+        //     (char *) "indexer.log",
+        //     utils::Logger::Debug
+        // );
+    this->index.add(nodeBlock);
 }
 
 
@@ -52,27 +52,27 @@ int Indexer<T>::read(unsigned const size) {
 
     char *byteBuffer = (char *) malloc(sizeof(char) * size);
 
-    if (len != fread(&byteBuffer, sizeof(char), len, this->_fp)) {
-        this->_logger.error(
-            "Unable to READ bytes in %d, from file %s.\n",
-            this->_fp,
-            this->filePath);
+    if (size != fread(&byteBuffer, sizeof(char), size, this->_fp)) {
+        // this->_logger.error(
+        //     "Unable to READ bytes in %d, from file %s.\n",
+        //     this->_fp,
+        //     this->filePath);
         return 1;
     }
 
-    this->fileBufferSize += len;
+    this->fileBufferSize += size;
     this->fileBuffer = (char *) realloc(this->fileBuffer, this->fileBufferSize);
 }
 
 
 template<class T> // indexer recebe nodeBlock
-void Indexer<T>::seekFromIndex(T key) {
+unsigned long long Indexer<T>::seekFromIndex(T key) {
     nodeBlock look;
     look.userField = key;
-    if (!tee.lookup(look)){
-        this->_logger.error(
-            "Unable to SEEK %p from file %s.\n",
-            this->key, this->filePath);
+    if (!this->index.lookup(look)) {
+        // this->_logger.error(
+        //     "Unable to SEEK %p from file %s.\n",
+        //     this->key, this->filePath);
         return 1;
     }
     return look.rrn;
@@ -82,7 +82,7 @@ void Indexer<T>::seekFromIndex(T key) {
 
 template<class T> // indexer recebe nodeBlock
 void Indexer<T>::deleteIndex(T nodeBlock){
-    tee.deleteTree(nodeBlock);
+    this->index.deleteTree(nodeBlock);
 }
 
 #endif

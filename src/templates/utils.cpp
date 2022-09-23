@@ -48,7 +48,7 @@ namespace utils {
         return &charArr[0];
     }
 
-    inline char toUpperCase(char &c) {
+    inline char toUpperCase(const char &c) {
         return c &= ~32;
     }
 
