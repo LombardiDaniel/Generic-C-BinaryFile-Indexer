@@ -7,31 +7,41 @@
 
 
 #define DEBUG                                               true
-#define USER_FILE_PATH "{{user_file_path}}"
-#define INDEXER_C_TYPE "{{ indexer_c_type }}"
+#define USER_FILE_PATH "/Users/daniellombardi/Desktop/UFSCar/_current.nosync/ORI/TRAB/Generic-C-BinaryFile-Indexer/descricao.txt"
+#define INDEXER_C_TYPE "float"
 
-typedef {{ indexer_c_type }} indexed_data_type;
+typedef float indexed_data_type;
 
 struct {
-    {% for field in struct_head_lst %}
-        {{ make_field_name_in_struct(field) }};
-    {% endfor %}
+    
+        unsigned id;
+    
+        unsigned categoria;
+    
+        char myCustomClass[40];
+    
 } userStructHead;
 
 struct {
-    {% for field in struct_lst %}
-        {{ make_field_name_in_struct(field) }};
-    {% endfor %}
+    
+        unsigned id;
+    
+        unsigned categoria;
+    
+        char myCustomClass[40];
+    
+        float __index__preco;
+    
 } userStruct;
 
 static const size_t SIZE_OF_STRUCT = sizeof(userStruct);
 static const size_t SIZE_OF_HEAD = sizeof(userStructHead);
 
 struct nodeBlock {
-    {{ indexer_c_type }} userField;
+    float userField;
     unsigned long long rrn;
 };
-// need to save "{{ indexer_c_name }}"
+// need to save "__index__preco"
 
 template<typename... Args>
 void log(const char* message, Args... args);

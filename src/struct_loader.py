@@ -31,6 +31,24 @@ class StructLoader:
             if item['value'].startswith('__index__'):
                 return item['key']
 
+    @property
+    def indexer_c_name(self):
+        for item in self.struct_dict['value']:
+            if item['value'].startswith('__index__'):
+                return item['value']
+
+    @property
+    def struct_head(self):
+        head = []
+
+        for item in self.struct_dict['value']:
+            if not item['value'].startswith('__index__'):
+                head.append(item)
+            else:
+                break
+
+        return head
+
 
 if __name__ == '__main__':
     from pprint import pprint

@@ -43,28 +43,29 @@ struct nodeBlock {
 
 int index_file(char * path) {
    std::ifstream infile;
-   infile.open("PATH");
+   infile.open(PATH);
    int current = size_before_indexed;
 
     struct nodeBlock bufferStruct;
 
-    while (!EOF) {
+    // while (!EOF) {
+    //
+    //     infile.seekg(current, std::ios::beg);
+    //
+    //     current = size_before_indexed + total_size_of_struct;
+    //     infile.read(bufferStruct.userField, sizeof(index_type));
+    //     bufferStruct.rrn = (int)current / total_size_of_struct;
+    //
+    //     indexer.add(bufferStruct);
+    // }
 
-        infile.seekg(current, std::ios::beg);
-
-        current = size_before_indexed + total_size_of_struct;
-        infile.read(bufferStruct.userField, sizeof(index_type));
-        bufferStruct.rrn = (int)current / total_size_of_struct;
-
-        indexer.add(bufferStruct);
-    }
     FILE *fp = fopen(PATH, "rb");
     myStruct tmp;
-    index_type value;
-    fread(&tmp, size_before_indexed, 1, fp);
-    while (fread(&value, sizeof(index_type), 1, fp)) {
-        bufferStruct.rrn = ftell(fp);
-        bufferStruct.userField = value;
+    while (fread(&tmp, sizeof(myStruct), 1, fp)) {
+        bufferStruct.rrn = ftell(fp) - sizeof(myStruct);
+        // bufferStruct.userField = tmp.{{ indexer_c_name }};
+        bufferStruct.userField = tmp.__index__preco;
+        indexer.add(bufferStruct);
     }
 
     infile.close();

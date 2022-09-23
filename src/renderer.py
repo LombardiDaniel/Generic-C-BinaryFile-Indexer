@@ -52,7 +52,7 @@ class Renderer:
         self.target_dir = target_dir
         self.i_index = i_index
 
-    def render(self, user_file_path):
+    def render(self, user_file_path, struct_head, indexer_c_name):
         '''
         Renders the files and copies them to the correct directory.
         '''
@@ -67,6 +67,8 @@ class Renderer:
             i_index=self.i_index,
             sum_str=self.get_size_before_index_sum(),
             user_file_path=user_file_path,
+            struct_head_lst=struct_head,
+            indexer_c_name=indexer_c_name
         )
 
         with open(os.path.join(self.__template_dir, 'main_rendered.cpp'), 'w', encoding='UTF-8') as file:

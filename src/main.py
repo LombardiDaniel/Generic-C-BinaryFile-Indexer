@@ -18,6 +18,6 @@ if __name__ == '__main__':
         loader.i_index,
     )
 
-    renderer.render(args.db)
+    renderer.render(args.db, loader.struct_head, loader.indexer_c_name)
 
     renderer.make()

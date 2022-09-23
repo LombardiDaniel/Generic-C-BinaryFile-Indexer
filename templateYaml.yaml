@@ -2,7 +2,7 @@ myStruct:
     - unsigned : id
     - unsigned : categoria
     - 40: myCustomClass
-    - float: preco
+    - float: __index__preco
 
 # {'myStruct': [{'size_t': 'size'},
 #               {'unsigned long long': 'id'},
