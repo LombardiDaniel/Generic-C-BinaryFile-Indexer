@@ -68,7 +68,10 @@ int index_file(char * path, index_type value){
 }
 
 int search(char * path, index_type value){
-    indexer.seekFromIndex(value);
+    int rrn = indexer.seekFromIndex(value);
+    std::ifstream infile; 
+    infile.open("PATH");
+    infile.seekg(total_size_of_struct * rrn, std::ios::beg);
 }
 
 int main(int argc, char const* argv[]){
