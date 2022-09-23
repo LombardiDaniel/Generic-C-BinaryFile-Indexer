@@ -39,6 +39,29 @@ class Renderer:
         return f"sizeof({c_type})"
 
     @staticmethod
+    def get_str_represetnation(c_type):
+        d = {
+            'int': '%d',
+            'short int': '%hd',
+            'unsigned int': '%u',
+            'long int': '%ld',
+            'long long int': '%lld',
+            'unsigned long int': '%lu',
+            'unsigned long long int': '%llu',
+            'char': '%c',
+            'signed char': '%c',
+            'unsigned char': '%c',
+            'double': '%lf',
+            'long double': '%Lf',
+            'float': '%f',
+        }
+
+        if not isinstance(c_type, int):
+            return d[c_type]
+        else:
+            return '%s'
+
+    @staticmethod
     def make_field_name_in_struct(c_type_dict):
         if isinstance(c_type_dict['key'], int):
             return f"char {c_type_dict['value']}[{c_type_dict['key']}]"
@@ -61,6 +84,7 @@ class Renderer:
         main_template = env.get_template('main_TEMPLATE.cpp.j2')
         env.globals['size_or_size'] = Renderer.size_or_size
         env.globals['make_field_name_in_struct'] = Renderer.make_field_name_in_struct
+        env.globals['get_str_represetnation'] = Renderer.get_str_represetnation
         rendered_main = main_template.render(
             struct_lst=self.struct['value'],
             indexer_c_type=self.indexer_c_type,

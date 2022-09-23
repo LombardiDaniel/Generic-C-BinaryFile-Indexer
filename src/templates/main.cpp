@@ -36,7 +36,7 @@ for reg in file:
 
 struct nodeBlock {
     index_type userField;
-    unsigned long long rrn;
+    unsigned long long offset;
 };
 
 static Indexer<nodeBlock> indexer;
@@ -45,28 +45,41 @@ int index_file(char * path) {
    std::ifstream infile;
    infile.open(PATH);
 
-    struct nodeBlock bufferStruct;
+    nodeBlock bufferStruct;
 
     FILE *fp = fopen(PATH, "rb");
     myStruct tmp;
     // fseek(fp, rrn, SEEK_START);
     // https://www.tutorialspoint.com/c_standard_library/c_function_fseek.htm
     while (fread(&tmp, sizeof(myStruct), 1, fp)) {
-        bufferStruct.rrn = ftell(fp) - sizeof(myStruct);
+        bufferStruct.offset = ftell(fp) - sizeof(myStruct);
         // bufferStruct.userField = tmp.{{ indexer_c_name }};
         bufferStruct.userField = tmp.__index__preco;
         indexer.add(bufferStruct);
     }
 
-    infile.close();
     return 0;
 }
 
-int search(char * path, index_type value){
-    int rrn = indexer.seekFromIndex(value);
-    std::ifstream infile;
-    infile.open("PATH");
-    infile.seekg(total_size_of_struct * rrn, std::ios::beg);
+int search(char *path, index_type value){
+    FILE *fp = fopen(PATH, "rb");
+    myStruct tmp;
+
+    nodeBlock blkTmp;
+    blkTmp.userField = value;
+
+    int offset = indexer.seekFromIndex(blkTmp);
+    fseek(fp, offset, SEEK_SET);
+
+    while (fread(&tmp, sizeof(myStruct), 1, fp)) {
+        // bufferStruct.userField = tmp.{{ indexer_c_name }};
+        // tmp.userField = tmp.__index__preco;
+        // aqui ja ta c a struct certa no tmp
+
+        printf("id: %ud", tmp.id);
+
+    }
+
 }
 
 void *castToType(void *arg);
