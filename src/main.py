@@ -21,3 +21,5 @@ if __name__ == '__main__':
     renderer.render(args.db, loader.struct_head, loader.indexer_c_name)
 
     renderer.make()
+
+# python main.py --yaml ../templateYaml.yaml --db /Users/daniellombardi/Desktop/UFSCar/_current.nosync/ORI/TRAB/Generic-C-BinaryFile-Indexer/descricao.txt

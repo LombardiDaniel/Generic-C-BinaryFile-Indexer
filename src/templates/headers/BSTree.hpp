@@ -12,7 +12,7 @@ class BinaryTree
 
 		// struct nodeBlock {
 		//     {% indexer_c_type %} userField;
-		//     unsigned long long rrn;
+		//     unsigned long long ofset;
 		// };
 
 		struct node* right;
@@ -67,7 +67,7 @@ void BinaryTree<T>::add(struct node** node, T nodeBlock){
 
 		this->treeSize++;
 	} else {
-		if (nodeBlock.userField > (*node)->value) {
+		if (nodeBlock.userField > (*node)->value.userField) {
 			add(&(*node)->right, nodeBlock);
 		} else {
 			add(&(*node)->left, nodeBlock);
@@ -95,7 +95,7 @@ bool BinaryTree<T>::lookup(struct node* node, T &nodeBlock){
 		return false;
 	} else {
 		if (nodeBlock.userField == node->value.userField) {
-			nodeBlock.rrn = node->value.rrn;
+			nodeBlock.ofset = node->value.ofset;
 			return true;
 		}
 

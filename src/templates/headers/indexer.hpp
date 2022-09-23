@@ -27,7 +27,7 @@ public:
 
     int read(unsigned const size);
 
-    unsigned long long seekFromIndex(T key); // Isso vai pegar key de uma váriavel
+    unsigned long long seekFromIndex(T &block); // Isso vai pegar key de uma váriavel
 
     void deleteIndex(T nodeBlock);
 
@@ -66,16 +66,11 @@ int Indexer<T>::read(unsigned const size) {
 
 
 template<class T> // indexer recebe nodeBlock
-unsigned long long Indexer<T>::seekFromIndex(T key) {
-    nodeBlock look;
-    look.userField = key;
-    if (!this->index.lookup(look)) {
-        // this->_logger.error(
-        //     "Unable to SEEK %p from file %s.\n",
-        //     this->key, this->filePath);
+unsigned long long Indexer<T>::seekFromIndex(T &block) {
+    if (!this->index.lookup(block))
         return 1;
-    }
-    return look.rrn;
+
+    return block.ofset;
 }
 
 
