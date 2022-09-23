@@ -1,5 +1,5 @@
 indexer: main_rendered.cpp utils.cpp
-	g++ -Wall -pedantic -O2 -Wno-unused-result main_rendered.cpp -o indexer -std=c++11
+	g++ -Wall -pedantic -O2 -Wno-unused-result -g main_rendered.cpp -o indexer -std=c++11
 
 # main: main.cpp utils.cpp
 # 	g++ -Wall -pedantic -O2 -Wno-unused-result main.cpp -o indexer -std=c++11

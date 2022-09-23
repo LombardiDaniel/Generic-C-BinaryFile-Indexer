@@ -93,11 +93,11 @@ int main(int argc, char const* argv[]) {
     char *op;
     memcpy(op, argv[1], 5);
 
-    if (strcmp(utils::toUpperCase(op), "INDEX") == 0) {
+    if (strcmp(argv[1], "INDEX") == 0) {
         index_file(PATH);
 
-    // } else if(strcmp(utils::toUpperCase(op), "SEARCH") == 0) {
-    //     search(PATH, (index_type)argv[1]);
+    } else if(strcmp(utils::toUpperCase(op), "SEARCH") == 0) {
+        search(PATH, (index_type)argv[1]);
     }
 
 }

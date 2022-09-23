@@ -38,7 +38,7 @@ static Indexer<nodeBlock> indexer;
 // functions
 int index_file(char * path);
 int search(char *path, indexed_data_type value);
-void *castToType(void *arg);
+void *castToType(char *arg);
 
 template<typename... Args>
 void log(const char* message, Args... args);
@@ -47,20 +47,36 @@ void log(const std::string message);
 
 
 int main(int argc, char const *argv[]) {
-    if (argc < 2) {
-        // Mensagem de erro aí
-        return 1;
+
+    char op[99];
+
+    while (true) {
+        scanf("%s", op);
+
+        if (strcmp(op, "INDEX") == 0) {
+            index_file(USER_FILE_PATH);
+
+        } else if (strcmp(op, "SEARCH") == 0) {
+
+            char key[99];
+            scanf("%s", key);
+
+            indexed_data_type val = *(indexed_data_type *) castToType(key);
+            search(USER_FILE_PATH, val);
+        }
     }
 
-    char *op = nullptr;
-    memcpy(op, argv[1], 5);
-
-    if (strcmp(op, "INDEX") == 0) {
-        index_file(USER_FILE_PATH);
-
-    // } else if(strcmp(utils::toUpperCase(op), "SEARCH") == 0) {
-    //     search(PATH, (index_type)argv[1]);
-    }
+    // if (strcmp(argv[1], "INDEX") == 0) {
+    //     index_file(USER_FILE_PATH);
+    //
+    // } else if (strcmp(argv[1], "SEARCH") == 0) {
+    //     // indexed_data_type val = (indexed_data_type) castToType(argv[1]);
+    //     if (argc < 3)
+    //         return 2;
+    //
+    //     indexed_data_type val = *(indexed_data_type *) castToType(argv[2]);
+    //     search(USER_FILE_PATH, val);
+    // }
 
     // Expected args:
     //      - 0 : TABLE_PATH (str) : path of the table to be indexed
@@ -103,7 +119,6 @@ int index_file(char * path) {
         nodeblk.offset = ftell(fp) - sizeof(userStruct);
         nodeblk.userField = tmp.{{ indexer_c_name }};
         indexer.add(nodeblk);
-        break;
     }
 
     fclose(fp);
@@ -130,13 +145,22 @@ int search(char *path, indexed_data_type value) {
     fclose(fp);
 }
 
-void *castToType(void *arg) { // vai ser utilizada no search
+void *castToType(char *arg) { // vai ser utilizada no search
+    indexed_data_type *tmp = (indexed_data_type *) malloc(sizeof(indexed_data_type) * 1);
+
     if (strcmp(INDEXER_C_TYPE, "float") == 0) {
-        float *tmp = (float *) malloc(sizeof(float) * 1);
         *tmp = atof((char *) arg);
-        return tmp;
+    } else if (strcmp(INDEXER_C_TYPE, "double") == 0) {
+        *tmp = strtod((char *) arg, NULL);
+    } else if (strcmp(INDEXER_C_TYPE, "int") == 0) {
+        *tmp = atoi((char *) arg);
+    } else if (strcmp(INDEXER_C_TYPE, "unsigned int") == 0) {
+       *tmp = atoi((char *) arg);
+    // } else if (strcmp(INDEXER_C_TYPE, "long long int") == 0) {
+        // *tmp = strtoll((char *) arg, NULL);
+    } else {
+        *tmp = atoi((char *) arg);
     }
-    // } else if () {
-    //
-    // }
+
+    return tmp;
 }
