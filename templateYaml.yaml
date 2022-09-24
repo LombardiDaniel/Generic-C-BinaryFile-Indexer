@@ -1,5 +1,5 @@
 myStruct:
     - unsigned int: id
-    - unsigned int: __index__categoria
+    - unsigned int: categoria
     - 40: nome
-    - float: preco
+    - float: __index__preco

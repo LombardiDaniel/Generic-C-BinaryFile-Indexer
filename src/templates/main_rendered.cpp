@@ -8,13 +8,17 @@
 
 #define DEBUG                                               true
 #define USER_FILE_PATH "/Users/daniellombardi/Desktop/UFSCar/_current.nosync/ORI/TRAB/Generic-C-BinaryFile-Indexer/src/tester/table"
-#define INDEXER_C_TYPE "unsigned int"
+#define INDEXER_C_TYPE "float"
 
-typedef unsigned int indexed_data_type;
+typedef float indexed_data_type;
 
 typedef struct {
     
         unsigned int id;
+    
+        unsigned int categoria;
+    
+        char nome[40];
     
 } userStructHead;
 
@@ -22,11 +26,11 @@ typedef struct {
     
         unsigned int id;
     
-        unsigned int __index__categoria;
+        unsigned int categoria;
     
         char nome[40];
     
-        float preco;
+        float __index__preco;
     
 } userStruct;
 
@@ -34,10 +38,10 @@ static const size_t SIZE_OF_STRUCT = sizeof(userStruct);
 static const size_t SIZE_OF_HEAD = sizeof(userStructHead);
 
 typedef struct {
-    unsigned int userField;
+    float userField;
     unsigned long long offset;
 } nodeBlock;
-// need to save "__index__categoria"
+// need to save "__index__preco"
 
 static Indexer<nodeBlock> indexer;
 
@@ -123,7 +127,7 @@ int index_file(char * path) {
     userStruct tmp;
     while (fread(&tmp, sizeof(userStruct), 1, fp)) {
         nodeblk.offset = ftell(fp) - sizeof(userStruct);
-        nodeblk.userField = tmp.__index__categoria;
+        nodeblk.userField = tmp.__index__preco;
         indexer.add(nodeblk);
     }
 
@@ -145,11 +149,11 @@ int search(char *path, indexed_data_type value) {
         
             printf("id: %u\n", tmp.id);
         
-            printf("__index__categoria: %u\n", tmp.__index__categoria);
+            printf("categoria: %u\n", tmp.categoria);
         
             printf("nome: %s\n", tmp.nome);
         
-            printf("preco: %f\n", tmp.preco);
+            printf("__index__preco: %f\n", tmp.__index__preco);
         
         break;
     }
